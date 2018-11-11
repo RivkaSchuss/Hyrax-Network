@@ -7,7 +7,9 @@ import datetime
 hyrax_dict = {}
 basestation_dict={}
 
-with open("C:\Users\Avihay Arzuan\Desktop\לימודים\פרויקט\data\Proximity_data\proximity_loggers\Proximity_loggers.csv") as f:
+real_data_path = "C:\Users\Avihay Arzuan\Desktop\לימודים\פרויקט\data\Proximity_data\proximity_loggers\Real Data"
+proximity_loggers_path = "C:\Users\Avihay Arzuan\Desktop\לימודים\פרויקט\data\Proximity_data\proximity_loggers\Proximity_loggers.csv"
+with open(proximity_loggers_path) as f:
     reader = csv.reader(f)
     first_row = next(reader)
     attribute_list = first_row[0].split(";")
@@ -19,21 +21,22 @@ with open("C:\Users\Avihay Arzuan\Desktop\לימודים\פרויקט\data\Proximity_data\pro
         try:
             row = next(reader)
             line = row[0]
-            splitted = line.split(';')
-            if splitted[attribute_list.index("Tag")] == "Basestation":
-                basestation_dict[splitted[0]] = ICollar.BaseStation(splitted[0])
+            split_line = line.split(';')
+            if split_line[attribute_list.index("Tag")] == "Basestation":
+                basestation_dict[split_line[0]] = ICollar.BaseStation(split_line[0])
                 continue
-            if splitted[attribute_list.index("Date_on")] == "":
+            if split_line[attribute_list.index("Date_on")] == "":
                 continue
-            if splitted[attribute_list.index("Date_off")] == "":
+            if split_line[attribute_list.index("Date_off")] == "":
                 continue
-            if splitted[attribute_list.index("Tag")] == "AK":
+            if split_line[attribute_list.index("Tag")] == "AK":
                 continue
-            hyrax_dict[splitted[0]] = ICollar.Hyrax(splitted[0],splitted)
+            hyrax_dict[int(split_line[0])] = ICollar.Hyrax(split_line[0],split_line, real_data_path)
         except Exception:
             #traceback.print_exc(file=sys.stdout)
             break
         i+=1
+        f.close
 
 #for key, hyrax in hyrax_dict.iteritems():
 #    hyrax.print_details()
@@ -60,6 +63,33 @@ for key, hyrax in hyrax_dict.iteritems():
 
     if first_off > datetime.date(y_off,m_off,d_off):
         first_off = datetime.date(y_off, m_off, d_off)
-print last_on
-print first_off
+#print last_on
+#print first_off
+
+#for key, hyrax in hyrax_dict.iteritems():
+    #tag = hyrax.get_tag()
+    #number = hyrax.get_hyrax_id()
+    #data_path = real_data_path + "\\logger"+ number + "_" + tag + ".csv"
+    #print hyrax.get_real_data_path()
+
+#hyrax = hyrax_dict.get(2)
+
+for key,hyrax in hyrax_dict.iteritems():
+    
+    hyrax = hyrax_dict.get(key)
+    with open(hyrax.get_real_data_path()) as f:
+        reader = csv.reader(f)
+        first_row = next(reader)
+        while True:
+            try:
+                row = next(reader)
+                meeting = ICollar.Encounter(row[0],row[1],row[2],row[3],row[4])
+                hyrax.add_encounter(row[0],meeting)
+                #print row
+            except Exception:
+                break
+        f.close
+    
+print first_row
+
 print "ss"
