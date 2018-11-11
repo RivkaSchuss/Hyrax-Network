@@ -42,7 +42,7 @@ class Hyrax(ICollar):
             value = ""
         return value
 
-    def __init__(self, collar_id, array):
+    def __init__(self, collar_id, array, real_data_folder_path):
         ICollar.__init__(self, collar_id)
         i = 0
         self.collar_id = self.set_value(array, i)
@@ -75,6 +75,13 @@ class Hyrax(ICollar):
         i += 1
         self.comments = self.set_value(array, i)
         i += 1
+        self.real_data_path = self.set_real_data_path(real_data_folder_path)
+
+    def set_real_data_path(self,real_data_folder_path):
+        return real_data_folder_path + "\\logger"+ self.collar_id + "_" + self.tag + ".csv"
+
+    def get_real_data_path(self):
+        return self.real_data_path
 
     def get_hyrax_id(self):
         return self.collar_id
