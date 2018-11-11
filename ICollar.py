@@ -115,7 +115,7 @@ class Hyrax(ICollar):
 
     def get_date_off(self):
         return self.date_off
-    
+
     def print_details(self):
         print "collar_id" + self.collar_id
         print self.serial_number 
