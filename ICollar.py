@@ -58,9 +58,9 @@ class Hyrax(ICollar):
         i += 1
         self.weight = self.set_value(array, i)
         i += 1
-        self.date_on = self.set_value(array, i)
+        self.date_on = self.set_value(array, i).split(" ")
         i += 1
-        self.date_off = self.set_value(array, i)
+        self.date_off = self.set_value(array, i).split(" ")
         i += 1
         self.seconds_off = self.set_value(array, i)
         i += 1
@@ -126,8 +126,8 @@ class Hyrax(ICollar):
         print self.group
         print self.sex
         print self.weight
-        print "date on:" + self.date_on
-        print "date off:" + self.date_off
+        print self.date_on
+        print self.date_off
         print self.seconds_off
         print self.daily_offset
         print self.data_points
