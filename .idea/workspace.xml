@@ -29,13 +29,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="1" />
-          <entry key="py" value="2027" />
+          <entry key="py" value="2213" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="2027" />
+          <entry key="Python" value="2213" />
         </counts>
       </usages-collector>
     </session>
@@ -54,29 +54,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ICollar.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1221">
-              <caret line="109" column="35" selection-start-line="109" selection-start-column="35" selection-end-line="109" selection-end-column="35" />
+            <state relative-caret-position="-405">
+              <caret line="24" column="22" lean-forward="true" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
               <folding>
-                <element signature="e#2286#2307#0" />
-                <element signature="e#2402#2427#0" />
-                <element signature="e#2465#2481#0" />
-                <element signature="e#2518#2533#0" />
-                <element signature="e#2577#2599#0" />
-                <element signature="e#2639#2657#0" />
-                <element signature="e#2696#2713#0" />
-                <element signature="e#2750#2765#0" />
-                <element signature="e#2805#2823#0" />
-                <element signature="e#2868#2891#0" />
-                <element signature="e#2937#2961#0" />
-                <element signature="e#3006#3029#0" />
-                <element signature="e#2353#2382#0" />
-                <element signature="e#2419#2438#0" />
-                <element signature="e#2476#2496#0" />
-                <element signature="e#2421#2870#0" />
-                <marker date="1541939925857" expanded="true" signature="14:15" ph="..." />
-                <marker date="1541939925857" expanded="true" signature="269:274" ph="..." />
-                <marker date="1541939925857" expanded="true" signature="2985:2991" ph="..." />
-                <marker date="1541939925857" expanded="true" signature="3692:3900" ph="..." />
+                <element signature="e#3235#3657#0" />
+                <marker date="1541958068932" expanded="true" signature="14:15" ph="..." />
+                <marker date="1541958068932" expanded="true" signature="513:518" ph="..." />
+                <marker date="1541958068932" expanded="true" signature="3933:4141" ph="..." />
               </folding>
             </state>
           </provider>
@@ -84,7 +68,14 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ParseDetails.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="22" column="70" lean-forward="true" selection-start-line="22" selection-start-column="70" selection-end-line="22" selection-end-column="70" />
+              <folding>
+                <element signature="e#16#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -107,6 +98,7 @@
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/hyrax.py" />
         <option value="$PROJECT_DIR$/Hyrax.py" />
+        <option value="$PROJECT_DIR$/ParseDetails.py" />
         <option value="$PROJECT_DIR$/ICollar.py" />
       </list>
     </option>
@@ -214,6 +206,29 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Favorites" order="0" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.21306472" />
+      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="1" />
+      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="4" weight="0.31428573" />
+      <window_info anchor="bottom" id="Python Console" order="5" />
+      <window_info anchor="bottom" id="Message" order="6" />
+      <window_info anchor="bottom" id="Find" order="7" />
+      <window_info anchor="bottom" id="Run" order="8" />
+      <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="12" />
+      <window_info anchor="right" id="Database" order="0" />
+      <window_info anchor="right" id="SciView" order="1" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="2" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -255,9 +270,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ParseDetails.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -265,31 +277,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ParseDetails.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="22" column="70" lean-forward="true" selection-start-line="22" selection-start-column="70" selection-end-line="22" selection-end-column="70" />
+          <folding>
+            <element signature="e#16#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ICollar.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1221">
-          <caret line="109" column="35" selection-start-line="109" selection-start-column="35" selection-end-line="109" selection-end-column="35" />
+        <state relative-caret-position="-405">
+          <caret line="24" column="22" lean-forward="true" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
           <folding>
-            <element signature="e#2286#2307#0" />
-            <element signature="e#2402#2427#0" />
-            <element signature="e#2465#2481#0" />
-            <element signature="e#2518#2533#0" />
-            <element signature="e#2577#2599#0" />
-            <element signature="e#2639#2657#0" />
-            <element signature="e#2696#2713#0" />
-            <element signature="e#2750#2765#0" />
-            <element signature="e#2805#2823#0" />
-            <element signature="e#2868#2891#0" />
-            <element signature="e#2937#2961#0" />
-            <element signature="e#3006#3029#0" />
-            <element signature="e#2353#2382#0" />
-            <element signature="e#2419#2438#0" />
-            <element signature="e#2476#2496#0" />
-            <element signature="e#2421#2870#0" />
-            <marker date="1541939925857" expanded="true" signature="14:15" ph="..." />
-            <marker date="1541939925857" expanded="true" signature="269:274" ph="..." />
-            <marker date="1541939925857" expanded="true" signature="2985:2991" ph="..." />
-            <marker date="1541939925857" expanded="true" signature="3692:3900" ph="..." />
+            <element signature="e#3235#3657#0" />
+            <marker date="1541958068932" expanded="true" signature="14:15" ph="..." />
+            <marker date="1541958068932" expanded="true" signature="513:518" ph="..." />
+            <marker date="1541958068932" expanded="true" signature="3933:4141" ph="..." />
           </folding>
         </state>
       </provider>

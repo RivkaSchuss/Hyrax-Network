@@ -7,7 +7,7 @@ import datetime
 hyrax_dict = {}
 basestation_dict={}
 
-with open("C:\Users\Avihay Arzuan\Desktop\мйоегйн\фшейчи\data\Proximity_data\proximity_loggers\Proximity_loggers.csv") as f:
+with open("C:\Users\Avihay Arzuan\Desktop\пїЅпїЅпїЅпїЅпїЅпїЅпїЅ\пїЅпїЅпїЅпїЅпїЅпїЅ\data\Proximity_data\proximity_loggers\Proximity_loggers.csv") as f:
     reader = csv.reader(f)
     first_row = next(reader)
     attribute_list = first_row[0].split(";")
@@ -29,7 +29,7 @@ with open("C:\Users\Avihay Arzuan\Desktop\мйоегйн\фшейчи\data\Proximity_data\pro
                 continue
             if splitted[attribute_list.index("Tag")] == "AK":
                 continue
-            hyrax_dict[splitted[0]] = ICollar.Hyrax(splitted[0],splitted)
+            hyrax_dict[splitted[0]] = ICollar.Hyrax(splitted[0], splitted)
         except Exception:
             #traceback.print_exc(file=sys.stdout)
             break
@@ -58,7 +58,7 @@ for key, hyrax in hyrax_dict.iteritems():
     if last_on < datetime.date(y_on, m_on, d_on):
         last_on = datetime.date(y_on, m_on, d_on)
 
-    if first_off > datetime.date(y_off,m_off,d_off):
+    if first_off > datetime.date(y_off, m_off, d_off):
         first_off = datetime.date(y_off, m_off, d_off)
 print last_on
 print first_off
