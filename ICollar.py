@@ -38,41 +38,74 @@ class Hyrax(ICollar):
         return value
 
     def __init__(self, collar_id, array):
-        ICollar.__init__(self,collar_id)
-        i=0
-        self.collar_id = self.set_value(array,i)
-        i+=1
-        self.serial_number = self.set_value(array,i)
-        i+=1
-        self.chip = self.set_value(array,i)
-        i+=1
-        self.tag = self.set_value(array,i)
-        i+=1
-        self.old_collar = self.set_value(array,i)
-        i+=1
-        self.canyon = self.set_value(array,i)
-        i+=1
-        self.group = self.set_value(array,i)
-        i+=1
-        self.sex = self.set_value(array,i)
-        i+=1
-        self.weight = self.set_value(array,i)
-        i+=1
-        self.date_on = self.set_value(array,i)
-        i+=1
-        self.date_off = self.set_value(array,i)
-        i+=1
-        self.seconds_off = self.set_value(array,i)
-        i+=1
-        self.daily_offset = self.set_value(array,i)
-        i+=1
-        self.data_points = self.set_value(array,i)
-        i+=1
-        self.comments = self.set_value(array,i)
-        i+=1
+        ICollar.__init__(self, collar_id)
+        i = 0
+        self.collar_id = self.set_value(array, i)
+        i += 1
+        self.serial_number = self.set_value(array, i)
+        i += 1
+        self.chip = self.set_value(array, i)
+        i += 1
+        self.tag = self.set_value(array, i)
+        i += 1
+        self.old_collar = self.set_value(array, i)
+        i += 1
+        self.canyon = self.set_value(array, i)
+        i += 1
+        self.group = self.set_value(array, i)
+        i += 1
+        self.sex = self.set_value(array, i)
+        i += 1
+        self.weight = self.set_value(array, i)
+        i += 1
+        self.date_on = self.set_value(array, i)
+        i += 1
+        self.date_off = self.set_value(array, i)
+        i += 1
+        self.seconds_off = self.set_value(array, i)
+        i += 1
+        self.daily_offset = self.set_value(array, i)
+        i += 1
+        self.data_points = self.set_value(array, i)
+        i += 1
+        self.comments = self.set_value(array, i)
+        i += 1
 
     def get_hyrax_id(self):
         return self.collar_id
+
+    def get_serial_number(self):
+        return self.serial_number
+
+    def get_chip(self):
+        return self.chip
+
+    def get_tag(self):
+        return self.tag
+
+    def get_old_collar(self):
+        return self.old_collar
+
+    def get_canyon(self):
+        return self.canyon
+
+    def get_group(self):
+        return self.group
+
+    def get_sex(self):
+        return self.sex
+
+    def get_weight(self):
+        return self.weight
+
+    def get_seconds_off(self):
+        return self.seconds_off
+
+    def get_daily_offset(self):
+        return self.daily_offset
+
+    def get_data_points(self):
+        return self.data_points
 
     def add_comment(self, comment):
         self.comments.append(comment)
@@ -82,7 +115,7 @@ class Hyrax(ICollar):
 
     def get_date_off(self):
         return self.date_off
-
+    
     def print_details(self):
         print "collar_id" + self.collar_id
         print self.serial_number 
