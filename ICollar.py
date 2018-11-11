@@ -2,16 +2,21 @@ class ICollar:
 
     def __init__(self, collar_id):
         self.collar_id = collar_id
-        self.encounters = []
-        self.filtered_encounters = []
+        self.encounters = dict()
+        self.filtered_encounters = dict()
 
     def add_encounter(self, enc_id, encounter):
         self.encounters[enc_id] = encounter
 
+    def filter_encounters(self, start_date, last_date):
+        for enc_id, encounter in self.encounters.iteritems():
+            if start_date < encounter.date < last_date:
+                self.filtered_encounters[enc_id] = encounter
+
 
 class Hyrax(ICollar):
     def __init__(self, collar_id, serial_number=None, chip=None, tag=None, old_collar=None, canyon=None,
-                group=None, sex=None, weight=None, date_on=None, date_off=None,
+                 group=None, sex=None, weight=None, date_on=None, date_off=None,
                  seconds_off=None, daily_offset=None, data_points=None, comments=None):
         ICollar.__init__(self, collar_id)
         self.collar_id = collar_id
@@ -30,7 +35,7 @@ class Hyrax(ICollar):
         self.data_points = data_points
         self.comments = comments
 
-    def set_value(self, array,i):
+    def set_value(self, array, i):
         try:
             value = array[i]
         except IndexError:
@@ -122,7 +127,7 @@ class Hyrax(ICollar):
 
     def get_date_off(self):
         return self.date_off
-    
+
     def print_details(self):
         print "collar_id" + self.collar_id
         print self.serial_number 

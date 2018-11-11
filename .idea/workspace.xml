@@ -18,24 +18,24 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="3" />
+          <entry key="py" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="3" />
+          <entry key="Python" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="1" />
-          <entry key="py" value="1569" />
+          <entry key="py" value="2027" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="1569" />
+          <entry key="Python" value="2027" />
         </counts>
       </usages-collector>
     </session>
@@ -54,15 +54,37 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ICollar.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="34" lean-forward="true" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+            <state relative-caret-position="1221">
+              <caret line="109" column="35" selection-start-line="109" selection-start-column="35" selection-end-line="109" selection-end-column="35" />
               <folding>
-                <marker date="1541930563875" expanded="true" signature="14:15" ph="..." />
-                <marker date="1541930563875" expanded="true" signature="269:274" ph="..." />
-                <marker date="1541930563875" expanded="true" signature="1171:1379" ph="..." />
+                <element signature="e#2286#2307#0" />
+                <element signature="e#2402#2427#0" />
+                <element signature="e#2465#2481#0" />
+                <element signature="e#2518#2533#0" />
+                <element signature="e#2577#2599#0" />
+                <element signature="e#2639#2657#0" />
+                <element signature="e#2696#2713#0" />
+                <element signature="e#2750#2765#0" />
+                <element signature="e#2805#2823#0" />
+                <element signature="e#2868#2891#0" />
+                <element signature="e#2937#2961#0" />
+                <element signature="e#3006#3029#0" />
+                <element signature="e#2353#2382#0" />
+                <element signature="e#2419#2438#0" />
+                <element signature="e#2476#2496#0" />
+                <element signature="e#2421#2870#0" />
+                <marker date="1541939925857" expanded="true" signature="14:15" ph="..." />
+                <marker date="1541939925857" expanded="true" signature="269:274" ph="..." />
+                <marker date="1541939925857" expanded="true" signature="2985:2991" ph="..." />
+                <marker date="1541939925857" expanded="true" signature="3692:3900" ph="..." />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ParseDetails.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -95,7 +117,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="x" value="1440" />
     <option name="width" value="1680" />
     <option name="height" value="1050" />
@@ -167,11 +189,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1440" y="0" width="1680" height="1050" extended-state="6" />
+    <frame x="1440" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21306472" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21306472" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
@@ -233,6 +255,9 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ParseDetails.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -242,12 +267,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ICollar.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="34" lean-forward="true" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+        <state relative-caret-position="1221">
+          <caret line="109" column="35" selection-start-line="109" selection-start-column="35" selection-end-line="109" selection-end-column="35" />
           <folding>
-            <marker date="1541930563875" expanded="true" signature="14:15" ph="..." />
-            <marker date="1541930563875" expanded="true" signature="269:274" ph="..." />
-            <marker date="1541930563875" expanded="true" signature="1171:1379" ph="..." />
+            <element signature="e#2286#2307#0" />
+            <element signature="e#2402#2427#0" />
+            <element signature="e#2465#2481#0" />
+            <element signature="e#2518#2533#0" />
+            <element signature="e#2577#2599#0" />
+            <element signature="e#2639#2657#0" />
+            <element signature="e#2696#2713#0" />
+            <element signature="e#2750#2765#0" />
+            <element signature="e#2805#2823#0" />
+            <element signature="e#2868#2891#0" />
+            <element signature="e#2937#2961#0" />
+            <element signature="e#3006#3029#0" />
+            <element signature="e#2353#2382#0" />
+            <element signature="e#2419#2438#0" />
+            <element signature="e#2476#2496#0" />
+            <element signature="e#2421#2870#0" />
+            <marker date="1541939925857" expanded="true" signature="14:15" ph="..." />
+            <marker date="1541939925857" expanded="true" signature="269:274" ph="..." />
+            <marker date="1541939925857" expanded="true" signature="2985:2991" ph="..." />
+            <marker date="1541939925857" expanded="true" signature="3692:3900" ph="..." />
           </folding>
         </state>
       </provider>
