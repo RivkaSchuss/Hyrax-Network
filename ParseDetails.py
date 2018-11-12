@@ -5,13 +5,10 @@ import sys, traceback
 import datetime
 
 hyrax_dict = {}
-basestation_dict={}
+base_station_dict = {}
 
-
-with open("C:\Users\Avihay Arzuan\Desktop\�������\������\data\Proximity_data\proximity_loggers\Proximity_loggers.csv") as f:
-
-real_data_path = "C:\Users\Avihay Arzuan\Desktop\�������\������\data\Proximity_data\proximity_loggers\Real Data"
-proximity_loggers_path = "C:\Users\Avihay Arzuan\Desktop\�������\������\data\Proximity_data\proximity_loggers\Proximity_loggers.csv"
+real_data_path = "Real_Data"
+proximity_loggers_path = "Proximity_loggers.csv"
 with open(proximity_loggers_path) as f:
 
     reader = csv.reader(f)
@@ -27,7 +24,7 @@ with open(proximity_loggers_path) as f:
             line = row[0]
             split_line = line.split(';')
             if split_line[attribute_list.index("Tag")] == "Basestation":
-                basestation_dict[split_line[0]] = ICollar.BaseStation(split_line[0])
+                base_station_dict[split_line[0]] = ICollar.BaseStation(split_line[0])
                 continue
             if split_line[attribute_list.index("Date_on")] == "":
                 continue
@@ -38,12 +35,12 @@ with open(proximity_loggers_path) as f:
 
             #hyrax_dict[splitted[0]] = ICollar.Hyrax(splitted[0], splitted)
 
-            hyrax_dict[int(split_line[0])] = ICollar.Hyrax(split_line[0],split_line, real_data_path)
+            hyrax_dict[int(split_line[0])] = ICollar.Hyrax(split_line[0], split_line, real_data_path)
 
         except Exception:
             #traceback.print_exc(file=sys.stdout)
             break
-        i+=1
+        i += 1
         f.close
 
 #for key, hyrax in hyrax_dict.iteritems():
@@ -54,8 +51,8 @@ with open(proximity_loggers_path) as f:
    
 date_on_dict = {}
 date_off_dict = {}
-last_on = datetime.date(2000, 1,1)
-first_off = datetime.date(2030, 1,1)
+last_on = datetime.date(2000, 1, 1)
+first_off = datetime.date(2030, 1, 1)
 for key, hyrax in hyrax_dict.iteritems():
     date_on_str = hyrax.get_date_on()[0].split("/")
     d_on = int(date_on_str[0])
@@ -82,7 +79,7 @@ for key, hyrax in hyrax_dict.iteritems():
 
 #hyrax = hyrax_dict.get(2)
 
-for key,hyrax in hyrax_dict.iteritems():
+for key, hyrax in hyrax_dict.iteritems():
     
     hyrax = hyrax_dict.get(key)
     with open(hyrax.get_real_data_path()) as f:
@@ -91,8 +88,8 @@ for key,hyrax in hyrax_dict.iteritems():
         while True:
             try:
                 row = next(reader)
-                meeting = ICollar.Encounter(row[0],row[1],row[2],row[3],row[4])
-                hyrax.add_encounter(row[0],meeting)
+                meeting = ICollar.Encounter(row[0], row[1], row[2], row[3], row[4])
+                hyrax.add_encounter(row[0], meeting)
                 #print row
             except Exception:
                 break

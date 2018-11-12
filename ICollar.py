@@ -77,8 +77,8 @@ class Hyrax(ICollar):
         i += 1
         self.real_data_path = self.set_real_data_path(real_data_folder_path)
 
-    def set_real_data_path(self,real_data_folder_path):
-        return real_data_folder_path + "\\logger"+ self.collar_id + "_" + self.tag + ".csv"
+    def set_real_data_path(self, real_data_folder_path):
+        return real_data_folder_path + "/logger" + self.collar_id + "_" + self.tag + ".csv"
 
     def get_real_data_path(self):
         return self.real_data_path
