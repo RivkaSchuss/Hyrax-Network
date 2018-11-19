@@ -1,3 +1,6 @@
+import datetime
+
+
 class ICollar:
 
     def __init__(self, collar_id):
@@ -12,6 +15,9 @@ class ICollar:
         for enc_id, encounter in self.encounters.iteritems():
             if start_date < encounter.date < last_date:
                 self.filtered_encounters[enc_id] = encounter
+
+    def get_filtered_encounters(self):
+        return self.filtered_encounters
 
 
 class Hyrax(ICollar):
@@ -130,7 +136,7 @@ class Hyrax(ICollar):
 
     def print_details(self):
         print "collar_id" + self.collar_id
-        print self.serial_number 
+        print self.serial_number
         print self.chip
         print self.tag
         print self.old_collar
@@ -160,6 +166,16 @@ class Encounter:
     def __init__(self, record_id, enc_id, date, start_time, length):
         self.record_id = record_id
         self.enc_id = enc_id
-        self.date = date.split("/")
+        current_date = date + "/2017"
+        current_date = current_date.split("/")
+        self.date = datetime.date(int(current_date[2]), int(current_date[1]), int(current_date[0]))
         self.start_time = start_time.split(":")
-        self.length = length
+        self.full_date = self.set_full_date(current_date, self.start_time)
+        self.length = int(length)
+
+    def set_full_date(self, current_date, start_time):
+        # spl = date.split("/")
+        d = datetime.datetime(int(current_date[2]), int(current_date[1]), int(current_date[0]), int(start_time[0]),
+                              int(start_time[1]), int(start_time[2]))
+        # c = d.time.replace(hour=start_time[0])
+        return d
