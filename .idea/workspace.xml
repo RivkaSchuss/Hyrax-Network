@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2cd1ba2-c8c8-4d10-8333-12579e3d4418" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Hyrax-Research.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Hyrax-Research.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HelperMethods.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/examples.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICollar.py" beforeDir="false" afterPath="$PROJECT_DIR$/ICollar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ParseDetails.py" beforeDir="false" afterPath="$PROJECT_DIR$/ParseDetails.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/lib/python2.7/sre.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/lib/python2.7/sre.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/lib/python2.7/sre_compile.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/lib/python2.7/sre_compile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/lib/python2.7/sre_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/lib/python2.7/sre_constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/lib/python2.7/sre_parse.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/lib/python2.7/sre_parse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/lib/python2.7/stat.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/lib/python2.7/stat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/lib/python2.7/types.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/lib/python2.7/types.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/lib/python2.7/warnings.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/lib/python2.7/warnings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +17,8 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Hyrax_Research$ParseDetails.coverage" NAME="ParseDetails Coverage Results" MODIFIED="1542017729615" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1542626178998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$ParseDetails.coverage" NAME="ParseDetails Coverage Results" MODIFIED="1542628951190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1542641895268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="624876578">
@@ -72,22 +68,26 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="4" />
+          <entry key="py" value="7" />
+          <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="4" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Python" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="141" />
+          <entry key="py" value="2402" />
+          <entry key="txt" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="141" />
+          <entry key="PLAIN_TEXT" value="36" />
+          <entry key="Python" value="2402" />
         </counts>
       </usages-collector>
     </session>
@@ -97,8 +97,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="19" column="45" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
+            <state relative-caret-position="280">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -108,7 +108,41 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ParseDetails.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="70" selection-start-line="70" selection-end-line="70" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ICollar.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="192">
+              <caret line="174" lean-forward="true" selection-start-line="174" selection-end-line="174" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HelperMethods.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="57">
+              <caret line="17" column="13" lean-forward="true" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/examples.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="41" selection-start-line="41" selection-end-line="41" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -120,6 +154,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>print</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -130,8 +169,11 @@
         <option value="$PROJECT_DIR$/venv/main.py" />
         <option value="$PROJECT_DIR$/hyrax.py" />
         <option value="$PROJECT_DIR$/Hyrax.py" />
-        <option value="$PROJECT_DIR$/ICollar.py" />
+        <option value="$PROJECT_DIR$/venv/HelperMethods.py" />
         <option value="$PROJECT_DIR$/ParseDetails.py" />
+        <option value="$PROJECT_DIR$/ICollar.py" />
+        <option value="$PROJECT_DIR$/HelperMethods.py" />
+        <option value="$PROJECT_DIR$/venv/examples.txt" />
         <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
@@ -182,6 +224,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Avihay Arzuan\Desktop\לימודים\פרויקט\Code" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -197,7 +240,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
+    <configuration name="ParseDetails" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Hyrax-Research" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ParseDetails.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Hyrax-Research" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -220,9 +285,14 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.ParseDetails" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.ParseDetails" />
       </list>
     </recent_temporary>
   </component>
@@ -237,7 +307,24 @@
       <option name="presentableId" value="Default" />
       <updated>1541924324508</updated>
     </task>
+    <task id="LOCAL-00001" summary="astral">
+      <created>1542626264727</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1542626264727</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="1913" y="-7" width="1358" height="814" extended-state="6" />
@@ -247,16 +334,16 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32959184" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32892805" />
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993895" visible="true" weight="0.32892805" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.6102041" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.41409692" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.31428573" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007704" side_tool="true" weight="0.3274596" />
+      <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.31424376" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5007704" side_tool="true" weight="0.3274596" />
+      <window_info anchor="bottom" id="TODO" order="10" weight="0.32892805" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49922958" weight="0.31277534" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -321,14 +408,37 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="astral" />
+    <option name="LAST_COMMIT_MESSAGE" value="astral" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/HelperMethods.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/HelperMethods.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Hyrax.py" />
     <entry file="file://$PROJECT_DIR$/../../../Third Year/project/Proximity_data/proximity_loggers/Proximity_loggers.csv" />
     <entry file="file://$PROJECT_DIR$/Real_Data/logger2_JN.csv" />
-    <entry file="file://$PROJECT_DIR$/ICollar.py" />
-    <entry file="file://$PROJECT_DIR$/ParseDetails.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/astral.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -339,10 +449,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/get-pip.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="84" lean-forward="true" selection-start-line="84" selection-end-line="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ICollar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="174" lean-forward="true" selection-start-line="174" selection-end-line="174" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ParseDetails.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HelperMethods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="17" column="13" lean-forward="true" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/examples.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="19" column="45" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
+        <state relative-caret-position="280">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

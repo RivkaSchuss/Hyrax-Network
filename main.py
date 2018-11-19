@@ -1,25 +1,16 @@
 import datetime
-from astral import Astral
+import ParseDetails
+import HelperMethods
 
-print "testtttt"
-print "test 2"
-print "shalommmmm"
+hyrax_dict, base_station_dict, last_on, first_off = ParseDetails.parse_details()
 
-a = Astral()
-a.solar_depression = 'civil'
-city_name = 'Jerusalem'
-city = a[city_name]
+print last_on
 
-print('Information for %s/%s\n' % (city_name, city.country))
+encounters_list = HelperMethods.add_all_encounters(hyrax_dict, last_on, first_off)
 
-timezone = city.timezone
-print('Timezone: %s' % timezone)
+for i in range(23):
+    s = datetime.time(i, 00)
+    t = datetime.time(i + 1, 00)
+    count = HelperMethods.get_by_hours(encounters_list, s, t)
+    print "Between " + str(i) + ":00  to " + str((i + 1)) + ":00 - " + str(count)
 
-print('Latitude: %.02f; Longitude: %.02f\n' % (city.latitude, city.longitude))
-
-sun = city.sun(date=datetime.date(2017, 6, 22), local=True)
-print('Dawn:    %s' % str(sun['dawn']))
-print('Sunrise: %s' % str(sun['sunrise']))
-print('Noon:    %s' % str(sun['noon']))
-print('Sunset:  %s' % str(sun['sunset']))
-print('Dusk:    %s' % str(sun['dusk']))
