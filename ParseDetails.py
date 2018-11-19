@@ -37,8 +37,9 @@ with open(proximity_loggers_path) as f:
 
             hyrax_dict[int(split_line[0])] = ICollar.Hyrax(split_line[0], split_line, real_data_path)
 
-        except Exception:
+        except Exception as e:
             #traceback.print_exc(file=sys.stdout)
+            print e
             break
         i += 1
         f.close
@@ -91,7 +92,8 @@ for key, hyrax in hyrax_dict.iteritems():
                 meeting = ICollar.Encounter(row[0], row[1], row[2], row[3], row[4])
                 hyrax.add_encounter(row[0], meeting)
                 #print row
-            except Exception:
+            except Exception as e:
+                print e
                 break
         f.close
     
