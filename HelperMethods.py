@@ -17,6 +17,8 @@ def add_all_encounters(hyrax_dict, start_date, end_date):
 def get_by_hours(encounter_list, start, end, time_interval_min=0, time_interval_max=float("inf")):
     count = 0
     # start = start.split(":")
+    if end == datetime.time(00, 00, 00):
+        end = datetime.time(23, 59, 59)
     for e in encounter_list:
         # print e.full_date
         # print e.full_date.time()
