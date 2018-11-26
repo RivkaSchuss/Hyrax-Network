@@ -35,3 +35,18 @@ def print_in_intervals(encounters_list):
         t = datetime.time((i + 1) % 24, 00)
         count = get_by_hours(encounters_list, s, t)
         print "Between " + str(i) + ":00  to " + str((i + 1)) + ":00 - " + str(count)
+
+
+def assign_pairs_to_dict(personal_list):
+    pair_to_row_dict = {}
+    row_count = 0
+    for p_id in personal_list:
+        count = len(personal_list)
+        for i in range(count):
+            if p_id != personal_list[i]:
+                row_name = str(p_id) + "," + str(personal_list[i])
+                pair_to_row_dict[row_name] = row_count
+                row_count += 1
+    return pair_to_row_dict
+
+# def get_columns_indexes_by_time(length)
