@@ -36,7 +36,7 @@ def parse_details():
                 hyrax_dict[int(split_line[0])] = collars.Hyrax(split_line[0], split_line, real_data_path)
             except Exception as e:
                 # traceback.print_exc(file=sys.stdout)
-                print e
+                print(e)
                 break
             i += 1
             f.close
@@ -73,7 +73,7 @@ def parse_details():
                     # print row
                 except Exception as e:
                     if len(str(e)) > 1:
-                        print e
+                        print(e)
                     break
             f.close
 
