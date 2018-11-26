@@ -133,23 +133,23 @@ class Hyrax(ICollar):
 
     def get_date_off(self):
         return self.date_off
-
-    def print_details(self):
-        print "collar_id" + self.collar_id
-        print self.serial_number
-        print self.chip
-        print self.tag
-        print self.old_collar
-        print self.canyon
-        print self.group
-        print self.sex
-        print self.weight
-        print self.date_on
-        print self.date_off
-        print self.seconds_off
-        print self.daily_offset
-        print self.data_points
-        print self.comments
+    #
+    # def print_details(self):
+    #     print "collar_id" + self.collar_id
+    #     print self.serial_number
+    #     print self.chip
+    #     print self.tag
+    #     print self.old_collar
+    #     print self.canyon
+    #     print self.group
+    #     print self.sex
+    #     print self.weight
+    #     print self.date_on
+    #     print self.date_off
+    #     print self.seconds_off
+    #     print self.daily_offset
+    #     print self.data_points
+    #     print self.comments
 
 
 class BaseStation(ICollar):
