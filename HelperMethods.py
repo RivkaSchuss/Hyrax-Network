@@ -1,6 +1,16 @@
 import ICollar
 import datetime
 import math
+from scipy.sparse import lil_matrix
+
+
+def main():
+
+    mtx = lil_matrix((400, 400))
+
+    add_values_to_lil(mtx, 4, 6, 10)
+
+    # print(mtx)
 
 
 def add_all_encounters(hyrax_dict, start_date, end_date):
@@ -34,7 +44,7 @@ def print_in_intervals(encounters_list):
         s = datetime.time(i % 24, 00)
         t = datetime.time((i + 1) % 24, 00)
         count = get_by_hours(encounters_list, s, t)
-        print "Between " + str(i) + ":00  to " + str((i + 1)) + ":00 - " + str(count)
+        print("Between " + str(i) + ":00  to " + str((i + 1)) + ":00 - " + str(count))
 
 
 def assign_pairs_to_dict(personal_list):
@@ -49,4 +59,18 @@ def assign_pairs_to_dict(personal_list):
                 row_count += 1
     return pair_to_row_dict
 
-# def get_columns_indexes_by_time(length)
+
+def add_values_to_lil(lil, row_to_add, i, j):
+
+    for placed in range(i, j):
+
+        lil[[row_to_add], [placed]] = 1
+
+    print(lil)
+
+
+
+
+
+if __name__ == main():
+    main()
