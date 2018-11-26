@@ -68,7 +68,7 @@ def parse_details():
             while True:
                 try:
                     row = next(reader)
-                    meeting = collars.Encounter(row[0], row[1], row[2], row[3], row[4])
+                    meeting = collars.Encounter(key, row[0], row[1], row[2], row[3], row[4])
                     hyrax.add_encounter(row[0], meeting)
                     # print row
                 except Exception as e:

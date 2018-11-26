@@ -163,7 +163,8 @@ class BaseStation(ICollar):
 
 
 class Encounter:
-    def __init__(self, record_id, enc_id, date, start_time, length):
+    def __init__(self, personal_id, record_id, enc_id, date, start_time, length):
+        self.personal_id = personal_id
         self.record_id = record_id
         self.enc_id = enc_id
         current_date = date + "/2017"
@@ -179,3 +180,7 @@ class Encounter:
                               int(start_time[1]), int(start_time[2]))
         # c = d.time.replace(hour=start_time[0])
         return d
+
+    def get_personal_id(self):
+        return self.personal_id
+
