@@ -1,5 +1,6 @@
 import ICollar
 import datetime
+
 import math
 
 
@@ -49,4 +50,15 @@ def assign_pairs_to_dict(personal_list):
                 row_count += 1
     return pair_to_row_dict
 
-# def get_columns_indexes_by_time(length)
+
+def get_columns_indexes_by_time(start_date, full_date, length):
+    start_index = int((full_date - start_date).total_seconds())
+    end_time = full_date + datetime.timedelta(seconds=length)
+    end_index = int((end_time - start_date).total_seconds())
+    return start_index, end_index
+
+
+def get_time_from_column_index(start_date, i):
+    current_time = start_date + datetime.timedelta(seconds=i)
+    return current_time
+

@@ -184,3 +184,8 @@ class Encounter:
     def get_personal_id(self):
         return self.personal_id
 
+    def get_full_date(self):
+        return self.full_date
+
+    def get_length(self):
+        return self.length
