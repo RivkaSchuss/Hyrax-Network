@@ -27,3 +27,11 @@ def get_by_hours(encounter_list, start, end, time_interval_min=0, time_interval_
                 count += 1
 
     return count
+
+
+def print_in_intervals(encounters_list):
+    for i in range(24):
+        s = datetime.time(i % 24, 00)
+        t = datetime.time((i + 1) % 24, 00)
+        count = get_by_hours(encounters_list, s, t)
+        print "Between " + str(i) + ":00  to " + str((i + 1)) + ":00 - " + str(count)

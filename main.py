@@ -1,17 +1,28 @@
 import datetime
 import ParseDetails
 import HelperMethods
+from scipy.sparse import lil_matrix
+
+# import
 
 hyrax_dict, base_station_dict, last_on, first_off = ParseDetails.parse_details()
 
-print last_on
+# print last_on
 
 encounters_list = HelperMethods.add_all_encounters(hyrax_dict, last_on, first_off)
 
-for i in range(24):
-    s = datetime.time(i % 24, 00)
-    t = datetime.time((i + 1) % 24, 00)
-    count = HelperMethods.get_by_hours(encounters_list, s, t)
-    print "Between " + str(i) + ":00  to " + str((i + 1)) + ":00 - " + str(count)
-    # print count
+# HelperMethods.print_in_intervals(encounters_list)
 
+personal_list = []
+
+for i in encounters_list:
+    id = i.get_personal_id()
+    if not personal_list.__contains__(id):
+        personal_list.append(id)
+
+
+print personal_list
+# mtx = lil_matrix((484, 5270400))
+# mtx[0, 0] = 1
+
+# print mtx
