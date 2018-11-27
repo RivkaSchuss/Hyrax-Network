@@ -42,7 +42,7 @@ def parse_details():
             f.close
     last_on = datetime.date(2000, 1, 1)
     first_off = datetime.date(2030, 1, 1)
-    for key, hyrax in hyrax_dict.iteritems():
+    for key, hyrax in hyrax_dict.items():
         date_on_str = hyrax.get_date_on()[0].split("/")
         d_on = int(date_on_str[0])
         m_on = int(date_on_str[1])
@@ -59,7 +59,7 @@ def parse_details():
     # print last_on
     # print first_off
 
-    for key, hyrax in hyrax_dict.iteritems():
+    for key, hyrax in hyrax_dict.items():
 
         hyrax = hyrax_dict.get(key)
         with open(hyrax.get_real_data_path()) as f:
