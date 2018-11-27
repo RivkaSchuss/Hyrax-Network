@@ -5,10 +5,10 @@ import math
 
 def add_all_encounters(hyrax_dict, start_date, end_date):
     encounter_list = []
-    for key, hyrax in hyrax_dict.iteritems():
+    for key, hyrax in hyrax_dict.items():
         hyrax.filter_encounters(start_date, end_date)
         filtered_dict = hyrax.get_filtered_encounters()
-        for id, encounter in filtered_dict.iteritems():
+        for id, encounter in filtered_dict.items():
             encounter_list.append(encounter)
 
     return encounter_list
@@ -34,7 +34,7 @@ def print_in_intervals(encounters_list):
         s = datetime.time(i % 24, 00)
         t = datetime.time((i + 1) % 24, 00)
         count = get_by_hours(encounters_list, s, t)
-        print "Between " + str(i) + ":00  to " + str((i + 1)) + ":00 - " + str(count)
+        print("Between " + str(i) + ":00  to " + str((i + 1)) + ":00 - " + str(count))
 
 
 def assign_pairs_to_dict(personal_list):

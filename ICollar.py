@@ -12,7 +12,7 @@ class ICollar:
         self.encounters[enc_id] = encounter
 
     def filter_encounters(self, start_date, last_date):
-        for enc_id, encounter in self.encounters.iteritems():
+        for enc_id, encounter in self.encounters.items():
             if start_date < encounter.date < last_date:
                 self.filtered_encounters[enc_id] = encounter
 

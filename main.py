@@ -16,6 +16,7 @@ for i in encounters_list:
     if not personal_list.__contains__(id):
         personal_list.append(id)
 
+print(personal_list)
 pair_to_row_dict = HelperMethods.assign_pairs_to_dict(personal_list)
 
 # mtx = lil_matrix((484, 5270400))
