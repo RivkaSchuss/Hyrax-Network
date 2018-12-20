@@ -1,6 +1,13 @@
 import ICollar
 import datetime
 import math
+from scipy import sparse
+from scipy.sparse import lil_matrix
+import ParseDetails
+import numpy as np
+
+
+amount_of_seconds = 5270400
 
 
 def add_all_encounters(hyrax_dict, start_date, end_date):
@@ -64,16 +71,77 @@ def get_time_from_column_index(start_date, i):
 
 
 def add_values_to_lil(lil, row_to_add, i, j):
-    if j > 5270399:
-        j = 5270399
-    if i > 5270399:
-        i = 5270399
-    for placed in range(i, j):
+    if j > amount_of_seconds - 1:
+        j = amount_of_seconds - 1
+    if i > amount_of_seconds - 1:
+        i = amount_of_seconds - 1
 
+    for placed in range(i, j):
         lil[[row_to_add], [placed]] = 1
 
-    # print(lil)
+
+def get_npz_file_name(num1, num2):
+    filename = 'LIL_mtx\\LIL[' + str(num1) + "-" + str(num2) + '].npz'
+    return filename
 
 
+def save_encounters_to_files():
+    start_experiment_date = datetime.datetime(2017, 6, 13, 00, 00)
+    hyrax_dict, base_station_dict, last_on, first_off = ParseDetails.parse_details()
+
+    encounters_list = add_all_encounters(hyrax_dict, last_on, first_off)
+
+    personal_list = []
+
+    for i in encounters_list:
+        id = i.get_personal_id()
+        if not personal_list.__contains__(id):
+            personal_list.append(id)
+
+    pair_to_row_dict = assign_pairs_to_dict(personal_list)
+
+    k = 0
+    for key, val in pair_to_row_dict.items():
+        mtx = lil_matrix((1, amount_of_seconds))
+        personal, other_hyrax = key
+        filename = get_npz_file_name(personal, other_hyrax)
+        # if personal == 2:
+
+        for e in encounters_list:
+            k += 1
+            if e.personal_id == personal and int(e.enc_id) == other_hyrax:
+                i, j = get_columns_indexes_by_time(start_experiment_date, e.full_date, e.length)
+                t = tuple([personal, other_hyrax])
+                # row = pair_to_row_dict[t]
+                add_values_to_lil(mtx, 0, i, j)
+        save_lil(filename, mtx)
 
 
+def calc_enc_bet_mtx(mtx_a, mtx_b):
+    a_xor_b = 0
+    a_union_b = 0
+    a_to_b = 0
+    b_to_a = 0
+    s = amount_of_seconds
+    for i in range(s):
+        if mtx_a[0, i] != 0:
+            a_to_b += 1
+        if mtx_b[0, i] != 0:
+            b_to_a += 1
+        if mtx_a[0, i] != 0 and mtx_b[0, i] != 0:
+            a_xor_b += 1
+        if mtx_a[0, i] != 0 or mtx_b[0, i] != 0:
+            a_union_b += 1
+    return a_xor_b, a_union_b, a_to_b, b_to_a
+
+
+def save_lil(filename, mtx):
+    np.savez(filename, dtype=mtx.dtype.str, data=mtx.data, rows=mtx.rows, shape=mtx.shape)
+
+
+def load_lil(filename):
+    loader = np.load(filename)
+    result = lil_matrix(tuple(loader["shape"]), dtype=str(loader["dtype"]))
+    result.data = loader["data"]
+    result.rows = loader["rows"]
+    return result

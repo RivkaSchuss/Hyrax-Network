@@ -1,74 +1,91 @@
+import HelperMethods
 import datetime
 import ParseDetails
-import HelperMethods
 from scipy.sparse import lil_matrix
 from scipy import sparse
 import numpy as np
 import json
+import csv
 
 
 def main():
-    start_experiment_date = datetime.datetime(2017, 6, 13, 00, 00)
-    hyrax_dict, base_station_dict, last_on, first_off = ParseDetails.parse_details()
-    start_experiment_date = datetime.datetime(2017, 6, 13, 00, 00)
-    hyrax_dict, base_station_dict, last_on, first_off = ParseDetails.parse_details()
+    # HelperMethods.save_encounters_to_files()
+    pair, a_xor_b, a_union_b, a_to_b, b_to_a = 'Pair: a-b', 'a_xor_b', 'a_union_b', 'a_to_b', 'b_to_a'
+    head_line = [pair, a_xor_b, a_union_b, a_to_b, b_to_a]
+    with open('EncountersInfo.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(head_line)
 
-    encounters_list = HelperMethods.add_all_encounters(hyrax_dict, last_on, first_off)
-
-    personal_list = []
-
-    for i in encounters_list:
-        id = i.get_personal_id()
-        if not personal_list.__contains__(id):
-            personal_list.append(id)
-
-    pair_to_row_dict = HelperMethods.assign_pairs_to_dict(personal_list)
-    mtx = lil_matrix((484, 5270400))
-    k = 0
-    for e in encounters_list:
-        k += 1
-        personal = e.personal_id
-        other_hyrax = int(e.enc_id)
-        if personal == 2 and other_hyrax == 26:
-            i, j = HelperMethods.get_columns_indexes_by_time(start_experiment_date, e.full_date, e.length)
-            t = tuple([personal, other_hyrax])
-            row = pair_to_row_dict[t]
-            HelperMethods.add_values_to_lil(mtx, row, i, j)
-        # if personal in personal_list and other_hyrax in personal_list:
-        #     i, j = HelperMethods.get_columns_indexes_by_time(start_experiment_date, e.full_date, e.length)
-        #     t = tuple([personal, other_hyrax])
-        #     row = pair_to_row_dict[t]
-        #     HelperMethods.add_values_to_lil(mtx, row, i, j)
-
-    # mtx = lil_matrix((20, 20))
-    # for i in range(20):
-    #     HelperMethods.add_values_to_lil(mtx, i, 4, 8)
-
-    filename = 'LIL.npz'
-
-    save_lil(filename, mtx)
-    loaded_mtx = load_lil(filename)
-    print(loaded_mtx)
-
-
-def save_lil(filename, mtx):
-    np.savez(filename, dtype=mtx.dtype.str, data=mtx.data, rows=mtx.rows, shape=mtx.shape)
-
-
-def load_lil(filename):
-    loader = np.load(filename)
-    result = lil_matrix(tuple(loader["shape"]), dtype=str(loader["dtype"]))
-    result.data = loader["data"]
-    result.rows = loader["rows"]
-    return result
+    personal_list = [2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 14, 19, 21, 22, 23, 24, 25, 26, 29, 33, 36, 39]
+    calculated_list = []
+    for i in personal_list:
+        for j in personal_list:
+            if i != j:
+                if (i == 2 and j == 3) or (i == 3 and j == 2):
+                    file_a = HelperMethods.get_npz_file_name(i, j)
+                    file_b = HelperMethods.get_npz_file_name(j, i)
+                    mtx_a = HelperMethods.load_lil(file_a)
+                    mtx_b = HelperMethods.load_lil(file_b)
+                    a_xor_b, a_union_b, a_to_b, b_to_a = HelperMethods.calc_enc_bet_mtx(mtx_a, mtx_b)
+                    # a_xor_b, a_union_b, a_to_b, b_to_a = 10, 20, 30, 40
+                    calculated_list.append((i, j))
+                    calculated_list.append((j, i))
+                    row_1 = [str(i) + '->' + str(j), a_xor_b, a_union_b, a_to_b, b_to_a]
+                    row_2 = [str(j) + '->' + str(i), a_xor_b, a_union_b, b_to_a, a_to_b]
+                    with open('EncountersInfo.csv', 'a', newline='') as f:
+                        writer = csv.writer(f)
+                        writer.writerow(row_1)
+                        writer.writerow(row_2)
 
 
 if __name__ == '__main__':
     main()
 
+    # s = HelperMethods.amount_of_seconds
+    # for i in range(s):
+    #     if mtx_1[0, i] != 0:
+    #         a_to_b += 1
+    #     if mtx_2[0, i] != 0:
+    #         b_to_a += 1
+    #     if mtx_1[0, i] != 0 and mtx_2[0, i] != 0:
+    #         a_xor_b += 1
+    #     if mtx_1[0, i] != 0 or mtx_2[0, i] != 0:
+    #         a_union_b += 1
+    #
+    # print(a_to_b)
+    # print(b_to_a)
+    # print(a_union_b)
+    # print(a_xor_b)
+# k = 0
+# for key, val in pair_to_row_dict.items():
+#     mtx = lil_matrix((1, HelperMethods.amount_of_seconds))
+#     personal, other_hyrax = key
+#     filename = HelperMethods.get_npz_file_name(personal, other_hyrax)
+#     if personal == 2 and other_hyrax == 26:
+#
+#         for e in encounters_list:
+#             k += 1
+#             if e.personal_id == personal and int(e.enc_id) == other_hyrax:
+#                 i, j = HelperMethods.get_columns_indexes_by_time(start_experiment_date, e.full_date, e.length)
+#                 t = tuple([personal, other_hyrax])
+#                 # row = pair_to_row_dict[t]
+#                 HelperMethods.add_values_to_lil(mtx, 0, i, j)
+#         save_lil(filename, mtx)
 
+# if personal in personal_list and other_hyrax in personal_list:
+#     i, j = HelperMethods.get_columns_indexes_by_time(start_experiment_date, e.full_date, e.length)
+#     t = tuple([personal, other_hyrax])
+#     row = pair_to_row_dict[t]
+#     HelperMethods.add_values_to_lil(mtx, row, i, j)
 
+# mtx = lil_matrix((20, 20))
+# for i in range(20):
+#     HelperMethods.add_values_to_lil(mtx, i, 4, 8)
 
+# filename = 'LIL' + str(personal) + str(other_hyrax) + '.npz'
 
-
-
+# filename = 'LIL.npz'
+#
+# save_lil(filename, mtx)
+# loaded_mtx = load_lil(filename)
+# print(loaded_mtx)
