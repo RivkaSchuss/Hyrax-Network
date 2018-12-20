@@ -44,7 +44,8 @@ def assign_pairs_to_dict(personal_list):
         count = len(personal_list)
         for i in range(count):
             if p_id != personal_list[i]:
-                row_name = str(p_id) + "," + str(personal_list[i])
+                row_name = tuple([p_id, personal_list[i]])
+                # row_name = str(p_id) + "," + str(personal_list[i])
                 pair_to_row_dict[row_name] = row_count
                 row_count += 1
     return pair_to_row_dict
@@ -62,14 +63,13 @@ def get_time_from_column_index(start_date, i):
     return current_time
 
 
-
 def add_values_to_lil(lil, row_to_add, i, j):
 
     for placed in range(i, j):
 
         lil[[row_to_add], [placed]] = 1
 
-    print(lil)
+    # print(lil)
 
 
 
