@@ -9,7 +9,7 @@ import csv
 
 
 def main():
-    # HelperMethods.save_encounters_to_files()
+    HelperMethods.save_encounters_to_files()
     pair, a_xor_b, a_union_b, a_to_b, b_to_a = 'Pair: a-b', 'a_xor_b', 'a_union_b', 'a_to_b', 'b_to_a'
     head_line = [pair, a_xor_b, a_union_b, a_to_b, b_to_a]
     with open('EncountersInfo.csv', 'w', newline='') as f:
@@ -21,13 +21,12 @@ def main():
     for i in personal_list:
         for j in personal_list:
             if i != j:
-                if (i == 2 and j == 3) or (i == 3 and j == 2):
+                if (i, j) not in calculated_list:
                     file_a = HelperMethods.get_npz_file_name(i, j)
                     file_b = HelperMethods.get_npz_file_name(j, i)
                     mtx_a = HelperMethods.load_lil(file_a)
                     mtx_b = HelperMethods.load_lil(file_b)
                     a_xor_b, a_union_b, a_to_b, b_to_a = HelperMethods.calc_enc_bet_mtx(mtx_a, mtx_b)
-                    # a_xor_b, a_union_b, a_to_b, b_to_a = 10, 20, 30, 40
                     calculated_list.append((i, j))
                     calculated_list.append((j, i))
                     row_1 = [str(i) + '->' + str(j), a_xor_b, a_union_b, a_to_b, b_to_a]
