@@ -62,14 +62,13 @@ def get_time_from_column_index(start_date, i):
     return current_time
 
 
-
 def add_values_to_lil(lil, row_to_add, i, j):
 
     for placed in range(i, j):
 
         lil[[row_to_add], [placed]] = 1
 
-    print(lil)
+    #print(lil)
 
 
 
