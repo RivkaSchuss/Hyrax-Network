@@ -64,7 +64,10 @@ def get_time_from_column_index(start_date, i):
 
 
 def add_values_to_lil(lil, row_to_add, i, j):
-
+    if j > 5270399:
+        j = 5270399
+    if i > 5270399:
+        i = 5270399
     for placed in range(i, j):
 
         lil[[row_to_add], [placed]] = 1
