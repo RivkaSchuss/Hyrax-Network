@@ -9,32 +9,11 @@ import csv
 
 
 def main():
-    HelperMethods.save_encounters_to_files()
-    pair, a_xor_b, a_union_b, a_to_b, b_to_a = 'Pair: a-b', 'a_xor_b', 'a_union_b', 'a_to_b', 'b_to_a'
-    head_line = [pair, a_xor_b, a_union_b, a_to_b, b_to_a]
-    with open('EncountersInfo.csv', 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(head_line)
+    # HelperMethods.save_encounters_to_files()
 
     personal_list = [2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 14, 19, 21, 22, 23, 24, 25, 26, 29, 33, 36, 39]
     calculated_list = []
-    for i in personal_list:
-        for j in personal_list:
-            if i != j:
-                if (i, j) not in calculated_list:
-                    file_a = HelperMethods.get_npz_file_name(i, j)
-                    file_b = HelperMethods.get_npz_file_name(j, i)
-                    mtx_a = HelperMethods.load_lil(file_a)
-                    mtx_b = HelperMethods.load_lil(file_b)
-                    a_xor_b, a_union_b, a_to_b, b_to_a = HelperMethods.calc_enc_bet_mtx(mtx_a, mtx_b)
-                    calculated_list.append((i, j))
-                    calculated_list.append((j, i))
-                    row_1 = [str(i) + '->' + str(j), a_xor_b, a_union_b, a_to_b, b_to_a]
-                    row_2 = [str(j) + '->' + str(i), a_xor_b, a_union_b, b_to_a, a_to_b]
-                    with open('EncountersInfo.csv', 'a', newline='') as f:
-                        writer = csv.writer(f)
-                        writer.writerow(row_1)
-                        writer.writerow(row_2)
+    HelperMethods.run_all_pairs(personal_list, calculated_list)
 
 
 if __name__ == '__main__':
