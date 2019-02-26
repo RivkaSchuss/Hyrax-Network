@@ -81,7 +81,8 @@ def add_values_to_lil(lil, row_to_add, i, j):
 
 
 def get_npz_file_name(num1, num2):
-    filename = 'LIL_mtx\\LIL[' + str(num1) + "-" + str(num2) + '].npz'
+    filename = 'LIL_mtx//LIL[' + str(num1) + "-" + str(num2) + '].npz'
+    # filename = 'LIL_mtx\\LIL[' + str(num1) + "-" + str(num2) + '].npz'
     return filename
 
 
@@ -118,6 +119,21 @@ def save_encounters_to_files():
 
 
 def calc_enc_bet_mtx(mtx_a, mtx_b):
+    end = 86400
+    val = 0
+    values_per_day = dict()
+    for i in range(60):
+        a_xor_b, a_union_b, a_to_b, b_to_a = calc_per_day(end, mtx_a, mtx_b)
+        if a_xor_b and a_union_b:
+            val = a_xor_b/a_union_b
+            values_per_day[i+1] = val
+        else:
+            values_per_day[i+1] = 0
+        end += 86400
+    return values_per_day
+
+
+def calc_per_day(end, mtx_a, mtx_b):
     a_xor_b = 0
     a_union_b = 0
     a_to_b = 0
@@ -126,12 +142,16 @@ def calc_enc_bet_mtx(mtx_a, mtx_b):
     non_zero_b = mtx_b.nonzero()[1]
 
     for value_a in non_zero_a:
+        if value_a > end and end < end - 86400:
+            return 0, 0, 0, 0
         a_to_b += 1
         a_union_b += 1
         if value_a in non_zero_b:
             a_xor_b += 1
             b_to_a += 1
     for value_b in non_zero_b:
+        if value_b > end :
+            return 0, 0, 0, 0
         if value_b not in non_zero_a:
             b_to_a += 1
             a_union_b += 1
@@ -149,7 +169,11 @@ def run_all_pairs(personal_list, calc_list):
                     file_b = get_npz_file_name(j, i)
                     mtx_a = load_lil(file_a)
                     mtx_b = load_lil(file_b)
-                    a_xor_b, a_union_b, a_to_b, b_to_a = calc_enc_bet_mtx(mtx_a, mtx_b)
+                    # a_xor_b, a_union_b, a_to_b, b_to_a = calc_enc_bet_mtx(mtx_a, mtx_b)
+                    values_per_day = calc_enc_bet_mtx(mtx_a, mtx_b)
+                    if values_per_day:
+                        print(values_per_day)
+                    """
                     calculated_list.append((i, j))
                     calculated_list.append((j, i))
                     row_1 = [str(i) + '->' + str(j), a_xor_b, a_union_b, a_to_b, b_to_a]
@@ -160,6 +184,7 @@ def run_all_pairs(personal_list, calc_list):
                         writer.writerow(row_2)
                         print(row_1)
                         print(row_2)
+                    """
 
 
 def write_head_line():
