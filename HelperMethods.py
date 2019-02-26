@@ -142,16 +142,16 @@ def calc_per_day(end, mtx_a, mtx_b):
     non_zero_b = mtx_b.nonzero()[1]
 
     for value_a in non_zero_a:
-        if value_a > end and end < end - 86400:
-            return 0, 0, 0, 0
+        if value_a > end or value_a < end - 86400:
+            continue
         a_to_b += 1
         a_union_b += 1
         if value_a in non_zero_b:
             a_xor_b += 1
             b_to_a += 1
     for value_b in non_zero_b:
-        if value_b > end :
-            return 0, 0, 0, 0
+        if value_b > end or value_b < end - 86400:
+            continue
         if value_b not in non_zero_a:
             b_to_a += 1
             a_union_b += 1
@@ -173,18 +173,23 @@ def run_all_pairs(personal_list, calc_list):
                     values_per_day = calc_enc_bet_mtx(mtx_a, mtx_b)
                     if values_per_day:
                         print(values_per_day)
-                    """
+                        row_1 = [str(i) + '->' + str(j)]
+                        for key, value in values_per_day.items():
+                            row_1.append(value)
+
                     calculated_list.append((i, j))
                     calculated_list.append((j, i))
-                    row_1 = [str(i) + '->' + str(j), a_xor_b, a_union_b, a_to_b, b_to_a]
-                    row_2 = [str(j) + '->' + str(i), a_xor_b, a_union_b, b_to_a, a_to_b]
-                    with open('EncountersInfo.csv', 'a', newline='') as f:
+                    # row_1 = [str(i) + '->' + str(j)]
+
+                    # row_1 = [str(i) + '->' + str(j), a_xor_b, a_union_b, a_to_b, b_to_a]
+                    # row_2 = [str(j) + '->' + str(i), a_xor_b, a_union_b, b_to_a, a_to_b]
+                    with open('EncountersInfoPerDay.csv', 'a', newline='') as f:
                         writer = csv.writer(f)
                         writer.writerow(row_1)
-                        writer.writerow(row_2)
+                        # writer.writerow(row_2)
                         print(row_1)
-                        print(row_2)
-                    """
+                        # print(row_2)
+
 
 
 def write_head_line():
