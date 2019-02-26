@@ -1,0 +1,288 @@
+commit c76546db9276fc1a0bf5564a0fb20b0816d7f6d3
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Thu Dec 20 12:40:24 2018 +0200
+
+    saving and loading
+
+commit 3cee241781248d6481410c7b69d50fb23a7d6982
+Merge: 1144ffb 4b79b10
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Thu Dec 20 10:18:47 2018 +0200
+
+    Merge branch 'master' of https://github.com/RivkaSchuss/Hyrax-Network
+    
+    # Conflicts:
+    #       .idea/workspace.xml
+
+commit 1144ffb0b466ae93c601d16bca65df3c78f2e9c3
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Thu Dec 20 10:17:43 2018 +0200
+
+    merge
+
+commit 4b79b10052df4bec25b116f6b47e8f5d3593e92a
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Fri Nov 30 13:14:11 2018 +0200
+
+    added working hours file
+
+commit 28f4c12b4ac5e24ef5c93ec055f21823d082bed0
+Merge: 5317091 a94656f
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Tue Nov 27 12:28:50 2018 +0200
+
+    merge
+
+commit 531709112b122e10db5ce9f29536dc7f6eacac53
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Tue Nov 27 12:27:14 2018 +0200
+
+    merge
+
+commit a94656f120234284769947deb452420e97320ae9
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Tue Nov 27 12:24:58 2018 +0200
+
+    changes to python 3.7
+
+commit 20970a298273dbca902be6ae994a4813d22a46ac
+Merge: f04edfe 1ceccba
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Mon Nov 26 17:41:59 2018 +0200
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       .idea/workspace.xml
+    #       HelperMethods.py
+
+commit f04edfe1b875f5266290275026d119fa4ff607dd
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Mon Nov 26 17:40:25 2018 +0200
+
+    cleaned main 2
+
+commit 1ceccba802932389bbb5fa471dea6fcc7547b3a5
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 26 17:37:59 2018 +0200
+
+    ignore
+
+commit 3f2d66f4b47fa1f055f3fb699336ee76e1c20ba8
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 26 17:33:29 2018 +0200
+
+    lil placement
+
+commit 923e35955f31e1b4f8a30007e86ad135d5d8b647
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Mon Nov 26 17:27:06 2018 +0200
+
+    cleaned main
+
+commit 5ed85494ce1dd120ced3757af95565837e553ed3
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 26 17:24:14 2018 +0200
+
+    lil placement
+
+commit c519aa09d05606f6c4b8c8645379e5593b9d8134
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Mon Nov 26 17:20:11 2018 +0200
+
+    column to index
+
+commit 89547ed0b6e2759f62aeaee6e8b3e7645c576e5c
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 26 17:19:37 2018 +0200
+
+    lil placement
+
+commit 0fe60964f9bd2863a66e6d143f8321bc7f05498d
+Merge: a6a85fe ebde4d0
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 26 16:17:12 2018 +0200
+
+    merge
+
+commit a6a85fe7887af08410a3af7517c711c9f85cff71
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 26 16:17:00 2018 +0200
+
+    merge
+
+commit ebde4d0aff10b78385622630e39a4359b0c71c9c
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Mon Nov 26 16:16:03 2018 +0200
+
+    pair_to_row_dict
+
+commit 82a65a660ca921a885f0426e0c7416c0b14d1619
+Merge: 247a80c 34bcca4
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 26 15:04:19 2018 +0200
+
+    merge
+
+commit 34bcca4da75c6f415a53c4901b157b9e5d3de871
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Mon Nov 26 15:02:23 2018 +0200
+
+    starting with lil
+
+commit 247a80c2e626156f31c79519d1f928a348d233a3
+Merge: 51eed54 c62e1fc
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 19 18:50:59 2018 +0200
+
+    Merge branch 'master' of https://github.com/RivkaSchuss/Hyrax-Network
+
+commit c62e1fc88441d09007ea167781938c919d954ad8
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Mon Nov 19 18:35:37 2018 +0200
+
+    fix with hour filters
+
+commit 51eed5403170428424e961c2fba39d057a1166c7
+Merge: 0faa037 8142438
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 19 18:01:34 2018 +0200
+
+    jj
+
+commit 81424387013bb2dbf93b09b7a942d76501387b3d
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Mon Nov 19 18:00:08 2018 +0200
+
+    added filters
+
+commit 0faa03777a61e9a24e300ed50ec3db5cbb5039ac
+Merge: 69b0546 8552742
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 19 13:23:06 2018 +0200
+
+    Dd
+
+commit 69b0546313ab7832eb1277abb38737005f852fe8
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 19 13:22:37 2018 +0200
+
+    dd
+
+commit 8552742f17d905acc61c9f7e7ea699992ec93214
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Mon Nov 19 13:17:44 2018 +0200
+
+    astral
+
+commit cb1f3951841813cbbf9ee565da679b0157a7877f
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 19 09:23:20 2018 +0200
+
+    night
+
+commit 59bebd37352fe8945cb7601bff1d9521bc221d1d
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Mon Nov 12 12:16:45 2018 +0200
+
+    relative path
+
+commit ccc30ee040e9228aafc73de4b73173933b026ed4
+Merge: e8cc05e ed42b39
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Sun Nov 11 22:06:30 2018 +0200
+
+    Dd
+
+commit e8cc05ed6671cb946e5c73eb82e66543fcacef93
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Sun Nov 11 22:05:00 2018 +0200
+
+    dd
+
+commit ed42b397c60b8c9bd68050ce2aaa8ee8f9daec60
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Sun Nov 11 21:44:22 2018 +0200
+
+    all parsing works
+
+commit ce1c601afcb0c74c3f6ccd42cacb9c30364ecf79
+Merge: d019529 888549d
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Sun Nov 11 20:36:48 2018 +0200
+
+    herge brach 'master' of https://github.com/RivkaSchuss/Hyrax-Network
+    merge
+
+commit d0195294c809a723500bbf139efe07b9386f45a6
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Sun Nov 11 20:36:42 2018 +0200
+
+    check i collar
+
+commit 888549d4be21d34baaf0abf576e8575104c2c297
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Sun Nov 11 20:27:23 2018 +0200
+
+    filtering
+
+commit 42015fbf5be741287817ee50e808a6e4dc4c650f
+Merge: dbe818c 12ec88d
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Sun Nov 11 19:27:29 2018 +0200
+
+    Merge branch 'master' of https://github.com/RivkaSchuss/Hyrax-Network
+
+commit dbe818c6a82aa85f61cc1bc7ab86d91a83940389
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Sun Nov 11 19:27:26 2018 +0200
+
+    fff
+
+commit 12ec88d372f2f3c45c277ece38846c5a6a3a3472
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Sun Nov 11 16:51:33 2018 +0200
+
+    get the last on and first off
+
+commit 04fe907d12f1ff6a91cc31a90fcb35fcd7dbf69b
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Sun Nov 11 14:29:58 2018 +0200
+
+    attributes
+
+commit d9161db253ead365f2db4271973cbde95c6bd11a
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Sun Nov 11 14:23:24 2018 +0200
+
+    added two getters
+
+commit ad13434232f166e502dd549615d6a3becc9ad558
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Sun Nov 11 14:10:24 2018 +0200
+
+    parsing
+
+commit f1920733b301919a62e09b1854c0fa53a8d12caa
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Sun Nov 11 12:11:07 2018 +0200
+
+    Adding hyrax definitions
+
+commit e39583b0ddc129155a52da91c7b727f10662f969
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Sun Nov 11 10:36:54 2018 +0200
+
+    test
+
+commit 1cf1c9a6b99f19a3c370d1b2d3063301229f1eec
+Author: avihayarzuan <avihayarzuan@gmail.com>
+Date:   Sun Nov 11 10:35:28 2018 +0200
+
+    ggg
+
+commit 32e6b5b0ff96b0d3b41f5909cf4d2f111693f38f
+Author: Rivka Schuss <rschuss123@gmail.com>
+Date:   Sun Nov 11 10:22:00 2018 +0200
+
+    First commit
