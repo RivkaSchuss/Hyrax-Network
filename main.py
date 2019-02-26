@@ -12,6 +12,7 @@ def main():
     # HelperMethods.save_encounters_to_files()
 
     personal_list = [2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 14, 19, 21, 22, 23, 24, 25, 26, 29, 33, 36, 39]
+    # personal_list = [2, 7]
     calculated_list = []
     HelperMethods.run_all_pairs(personal_list, calculated_list)
 
