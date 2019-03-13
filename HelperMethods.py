@@ -125,10 +125,10 @@ def calc_enc_bet_mtx(mtx_a, mtx_b):
     for i in range(60):
         a_xor_b, a_union_b, a_to_b, b_to_a = calc_per_day(end, mtx_a, mtx_b)
         if a_xor_b and a_union_b:
-            val = a_xor_b/a_union_b
-            values_per_day[i+1] = val
+            val = a_xor_b / a_union_b
+            values_per_day[i + 1] = val
         else:
-            values_per_day[i+1] = 0
+            values_per_day[i + 1] = 0
         end += 86400
     return values_per_day
 
@@ -159,7 +159,7 @@ def calc_per_day(end, mtx_a, mtx_b):
     return a_xor_b, a_union_b, a_to_b, b_to_a
 
 
-def run_all_pairs(personal_list, calc_list):
+def run_all_pairs_per_day(personal_list, calc_list):
     calculated_list = calc_list
     for i in personal_list:
         for j in personal_list:
@@ -171,9 +171,9 @@ def run_all_pairs(personal_list, calc_list):
                     mtx_b = load_lil(file_b)
                     # a_xor_b, a_union_b, a_to_b, b_to_a = calc_enc_bet_mtx(mtx_a, mtx_b)
                     values_per_day = calc_enc_bet_mtx(mtx_a, mtx_b)
+                    row_1 = [str(i) + '->' + str(j)]
                     if values_per_day:
                         print(values_per_day)
-                        row_1 = [str(i) + '->' + str(j)]
                         for key, value in values_per_day.items():
                             row_1.append(value)
 
@@ -190,6 +190,100 @@ def run_all_pairs(personal_list, calc_list):
                         print(row_1)
                         # print(row_2)
 
+
+def run_all_pairs(personal_list, calc_list):
+    calculated_list = calc_list
+    for i in personal_list:
+        for j in personal_list:
+            if i != j:
+                if (i, j) not in calculated_list:
+                    file_a = get_npz_file_name(i, j)
+                    file_b = get_npz_file_name(j, i)
+                    mtx_a = load_lil(file_a)
+                    mtx_b = load_lil(file_b)
+                    a_xor_b, a_union_b, a_to_b, b_to_a = calc_enc_bet_mtx(mtx_a, mtx_b)
+                    calculated_list.append((i, j))
+                    calculated_list.append((j, i))
+                    row_1 = [str(i) + '->' + str(j), a_xor_b, a_union_b, a_to_b, b_to_a]
+                    row_2 = [str(j) + '->' + str(i), a_xor_b, a_union_b, b_to_a, a_to_b]
+                    with open('EncountersInfo.csv', 'a', newline='') as f:
+                        writer = csv.writer(f)
+                        writer.writerow(row_1)
+                        writer.writerow(row_2)
+                        print(row_1)
+                        print(row_2)
+
+
+def run_diff_per_days_for_all_pairs(personal_list, calc_list):
+    calculated_list = calc_list
+    for i in personal_list:
+        for j in personal_list:
+            if i != j:
+                if (i, j) not in calculated_list:
+                    file_a = get_npz_file_name(i, j)
+                    file_b = get_npz_file_name(j, i)
+                    mtx_a = load_lil(file_a)
+                    mtx_b = load_lil(file_b)
+                    days_agreement_dictionary_a_to_b = calc_enc_bet_mtx_for_diff_of_days(mtx_a, mtx_b, 190)
+                    mtx_a = load_lil(file_a)
+                    mtx_b = load_lil(file_b)
+                    days_agreement_dictionary_b_to_a = calc_enc_bet_mtx_for_diff_of_days(mtx_b, mtx_a, 190)
+                    calculated_list.append((i, j))
+                    calculated_list.append((j, i))
+                    # row_1 = [str(i) + '->' + str(j)]
+                    row_2 = [str(i) + '->' + str(j)]
+                    row_temp = []
+                    row_3 = []
+                    for key, value in days_agreement_dictionary_b_to_a.items():
+                        row_temp.append(value)
+                    row_temp.reverse()
+                    row_mid = row_2 + row_temp
+                    for key, value in days_agreement_dictionary_a_to_b.items():
+                        # row_1.append(key)
+                        row_3.append(value)
+                    row = row_mid + row_3
+                    with open('AgreementForDayDiff190.csv', 'a', newline='') as f:
+                        writer = csv.writer(f)
+                        # writer.writerow(row_1)
+                        writer.writerow(row)
+                        # print(row_1)
+                        print(row)
+
+
+def calc_enc_bet_mtx_for_diff_of_days(mtx_a, mtx_b, days_count):
+    """
+    calculate agreement for the the given values of
+    days between to lines of sparse matrix.
+    :param mtx_a:
+    :param mtx_b:
+    :param days_count:
+    :return:
+    """
+    diff_per_days = {}
+    a_xor_b = 0
+    a_union_b = 0
+    non_zero_a_list = mtx_a.nonzero()[1]
+    non_zero_b_list = mtx_b.nonzero()[1]
+    non_zero_a = set(non_zero_a_list)
+    non_zero_b = set(non_zero_b_list)
+
+    for i in range(days_count):
+
+        for value_a in non_zero_a:
+            a_union_b += 1
+            value = value_a + i
+            if value in non_zero_b:
+                a_xor_b += 1
+        for value_b in non_zero_b:
+            value = value_b - i
+            if value not in non_zero_a:
+                a_union_b += 1
+        if a_union_b == 0:
+            diff_per_days[i] = 0
+        else:
+            diff_per_days[i] = a_xor_b / a_union_b
+
+    return diff_per_days
 
 
 def write_head_line():
@@ -210,3 +304,84 @@ def load_lil(filename):
     result.data = loader["data"]
     result.rows = loader["rows"]
     return result
+
+
+def count_total_encounters_for_pair(personal_list, calc_list):
+    calculated_list = calc_list
+    for i in personal_list:
+        for j in personal_list:
+            if i != j:
+                if (i, j) not in calculated_list:
+                    file_a = get_npz_file_name(i, j)
+                    file_b = get_npz_file_name(j, i)
+                    mtx_a = load_lil(file_a)
+                    mtx_b = load_lil(file_b)
+                    count_a_to_b = mtx_a.count_nonzero()
+                    count_b_to_a = mtx_b.count_nonzero()
+                    total = count_a_to_b + count_b_to_a
+                    calculated_list.append((i, j))
+                    calculated_list.append((j, i))
+                    row_1 = [str(i) + '<->' + str(j)]
+                    row_1.append(count_a_to_b)
+                    row_1.append(count_b_to_a)
+                    row_1.append(total)
+                    with open('Count_per_pair.csv', 'a', newline='') as f:
+                        writer = csv.writer(f)
+                        writer.writerow(row_1)
+                        # writer.writerow(row_2)
+                        print(row_1)
+                        # print(row_2)
+
+
+def read_encounters_count():
+    dict = {}
+    with open('Count_per_pair.csv', mode='r') as f:
+        reader = csv.DictReader(f)
+        for rows in reader:
+            key = parse_symetric_pair_to_tuple(rows['pair'])
+            total = rows['total']
+            dict[key] = int(total)
+
+    return dict
+
+
+def find_offset_to_maximize_agreement():
+    dict = {}
+    with open('AgreementForDayDiff190.csv', mode='r') as f:
+        reader = csv.reader(f)
+        my_list = list(reader)
+        offset_list = my_list[0]
+        for ls in my_list[1:]:
+            value = max(ls[1:])
+            if value == '0':
+                offset = 'null'
+            else:
+                index = ls.index(value)
+                offset = index - 190
+            # print(offset)
+            pair = parse_asymetric_pair_to_tuple(ls[0])
+            dict[pair] = offset
+    # print(dict)
+    return dict
+
+
+def parse_symetric_pair_to_tuple(key):
+    spl = key.split('<->')
+    tup = (spl[0], spl[1])
+    return tup
+
+
+def parse_asymetric_pair_to_tuple(key):
+    spl = key.split('->')
+    tup = (spl[0], spl[1])
+    return tup
+
+
+def fix_offset(offset_dic, encounters_count_dic):
+    fixed_offset_dict = {}
+    sorted_dict = sorted(encounters_count_dic.items(), key=lambda x: x[1], reverse=True)
+    for ent in sorted_dict:
+        e = ent[0]
+        print(offset_dic[e])
+
+    return fixed_offset_dict
