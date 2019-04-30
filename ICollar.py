@@ -189,3 +189,16 @@ class Encounter:
 
     def get_length(self):
         return self.length
+
+
+class DateAndTime:
+    def __init__(self, day, second, dates):
+        self.day = day
+        self.second = second
+        self.dates = dates
+        self.date = self.dates.get(self.day)
+
+    def create_stamp(self):
+        d = self.dates.get(self.day)
+        t = datetime.time()
+

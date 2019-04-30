@@ -7,8 +7,11 @@ import ParseDetails
 import numpy as np
 import csv
 import os
+import ephem
+import time
 
 amount_of_seconds = 5270400
+length_of_day = 86400
 
 
 def add_all_encounters(hyrax_dict, start_date, end_date):
@@ -424,4 +427,81 @@ def exmp(personal_list, calc_list):
                         writer.writerow(row_2)
                         print(row_1)
                         print(row_2)
+
+
+def initialize_days():
+    days_monitored = list()
+
+    length_day = length_of_day
+    current_day = []
+    start = 0
+    for i in range(61):
+        for j in range(int(length_day)):
+            current_day.append(start)
+            start += 1
+        copy = current_day.copy()
+        days_monitored.append(copy)
+
+        current_day.clear()
+    # print(days_monitored)
+    return days_monitored
+
+
+def find_time(days, second):
+    search = second
+    for day in days:
+        for sec_day in day:
+            if sec_day == search:
+                return days.index(day), day.index(sec_day)
+
+
+def initialize_specific_range():
+    days = []
+    start_date = datetime.date(2017, 6, 13)
+    end_date = datetime.date(2017, 8, 13)
+    dates = [start_date + datetime.timedelta(days=x) for x in range(0, (end_date-start_date).days)]
+    for date in dates:
+        days.append(date)
+    return days
+    # print(days)
+
+
+def determine_time(second):
+    # day = second // (24 * 3600)
+    second = second % (24 * 3600)
+    hour = second // 3600
+    second %= 3600
+    minutes = second // 60
+    second %= 60
+    seconds = second
+    return datetime.time(hour, minutes, seconds)
+
+
+def get_time_of_day(days, dates, second):
+    night = 0
+    day, sec_found = find_time(days, second)
+    date = dates[day]
+    spec_time = determine_time(sec_found)
+    date_time = datetime.datetime.combine(date, spec_time)
+
+    ein_gedi = ephem.Observer()
+    ein_gedi.date = ephem.Date(date_time)
+    ein_gedi.lat = '31.46720101'
+    ein_gedi.lon = '35.39643957'
+    next_sunrise = ein_gedi.next_rising(ephem.Sun()).datetime()
+    next_sunset = ein_gedi.next_setting(ephem.Sun()).datetime()
+    if next_sunset < next_sunrise:
+        night = 0
+    else:
+        night = 1
+
+
+
+    return date, spec_time, night
+
+
+
+
+
+
 
