@@ -429,30 +429,30 @@ def exmp(personal_list, calc_list):
                         print(row_2)
 
 
-def initialize_days():
-    days_monitored = list()
-
-    length_day = length_of_day
-    current_day = []
-    start = 0
-    for i in range(61):
-        for j in range(int(length_day)):
-            current_day.append(start)
-            start += 1
-        copy = current_day.copy()
-        days_monitored.append(copy)
-
-        current_day.clear()
-    # print(days_monitored)
-    return days_monitored
-
-
-def find_time(days, second):
-    search = second
-    for day in days:
-        for sec_day in day:
-            if sec_day == search:
-                return days.index(day), day.index(sec_day)
+# def initialize_days():
+#     days_monitored = list()
+#
+#     length_day = length_of_day
+#     current_day = []
+#     start = 0
+#     for i in range(61):
+#         for j in range(int(length_day)):
+#             current_day.append(start)
+#             start += 1
+#         copy = current_day.copy()
+#         days_monitored.append(copy)
+#
+#         current_day.clear()
+#     # print(days_monitored)
+#     return days_monitored
+#
+#
+# def find_time(days, second):
+#     search = second
+#     for day in days:
+#         for sec_day in day:
+#             if sec_day == search:
+#                 return days.index(day), day.index(sec_day)
 
 
 def initialize_specific_range():
@@ -477,11 +477,12 @@ def determine_time(second):
     return datetime.time(hour, minutes, seconds)
 
 
-def get_time_of_day(days, dates, second):
+def get_time_of_day(dates, second):
     night = 0
-    day, sec_found = find_time(days, second)
+    # day, sec_found = find_time(days, second)
+    day = int(second/length_of_day)
     date = dates[day]
-    spec_time = determine_time(sec_found)
+    spec_time = determine_time(second)
     date_time = datetime.datetime.combine(date, spec_time)
 
     ein_gedi = ephem.Observer()
@@ -494,8 +495,6 @@ def get_time_of_day(days, dates, second):
         night = 0
     else:
         night = 1
-
-
 
     return date, spec_time, night
 

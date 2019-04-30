@@ -10,7 +10,7 @@ def parse_details():
     hyrax_dict = {}
     base_station_dict = {}
     real_data_path = "Real_Data"
-    proximity_loggers_path = "Proximity_loggers.csv"
+    proximity_loggers_path = "csv_files/Proximity_loggers.csv"
     with open(proximity_loggers_path) as f:
         reader = csv.reader(f)
         first_row = next(reader)
