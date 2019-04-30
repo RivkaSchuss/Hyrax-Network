@@ -6,6 +6,7 @@ from scipy.sparse import lil_matrix
 import ParseDetails
 import numpy as np
 import csv
+import os
 
 amount_of_seconds = 5270400
 
@@ -242,7 +243,7 @@ def run_diff_per_days_for_all_pairs(personal_list, calc_list):
                         # row_1.append(key)
                         row_3.append(value)
                     row = row_mid + row_3
-                    with open('AgreementForDayDiff190.csv', 'a', newline='') as f:
+                    with open('exmp.csv', 'a', newline='') as f:
                         writer = csv.writer(f)
                         # writer.writerow(row_1)
                         writer.writerow(row)
@@ -378,10 +379,49 @@ def parse_asymetric_pair_to_tuple(key):
 
 
 def fix_offset(offset_dic, encounters_count_dic):
-    fixed_offset_dict = {}
-    sorted_dict = sorted(encounters_count_dic.items(), key=lambda x: x[1], reverse=True)
-    for ent in sorted_dict:
-        e = ent[0]
-        print(offset_dic[e])
 
-    return fixed_offset_dict
+    for key, value in offset_dic.items():
+
+        if value != 'null':
+            if not os.path.isfile('LIL_mtx_new//LIL[' + str(key[0]) + "-" + str(key[1]) + '].npz'):
+
+                file_a = get_npz_file_name(key[0], key[1])
+                file_b = get_npz_file_name(key[1], key[0])
+                mtx_a = load_lil(file_a)
+                mtx_b = load_lil(file_b)
+                if mtx_a.count_nonzero() > 15:
+                    a = mtx_a.nonzero()[1]
+
+                    for v in a:
+                        mtx_a[[0], [v]] = 0
+                        col = v + offset_dic[key]
+                        if col < 5270400:
+                            mtx_a[[0], [col]] = 1
+                        # 'LIL_mtx_new//LIL[' + str(key[0]) + "-" + str(key[1]) + '].npz'
+                    save_lil('LIL_mtx_new//LIL[' + str(key[0]) + "-" + str(key[1]) + '].npz', mtx_a)
+                    save_lil('LIL_mtx_new//LIL[' + str(key[1]) + "-" + str(key[0]) + '].npz', mtx_b)
+
+
+# i don't remember why i used exmp func"
+def exmp(personal_list, calc_list):
+    calculated_list = calc_list
+    for i in personal_list:
+        for j in personal_list:
+            if i != j:
+                if (i, j) not in calculated_list:
+                    file_a = get_npz_file_name(i, j)
+                    file_b = get_npz_file_name(j, i)
+                    mtx_a = load_lil(file_a)
+                    mtx_b = load_lil(file_b)
+                    a_xor_b, a_union_b, a_to_b, b_to_a = calc_enc_bet_mtx(mtx_a, mtx_a)
+                    calculated_list.append((i, j))
+                    calculated_list.append((j, i))
+                    row_1 = [str(i) + '->' + str(j), a_xor_b, a_union_b, a_to_b, b_to_a]
+                    row_2 = [str(j) + '->' + str(i), a_xor_b, a_union_b, b_to_a, a_to_b]
+                    with open('Exmp.csv', 'a', newline='') as f:
+                        writer = csv.writer(f)
+                        writer.writerow(row_1)
+                        writer.writerow(row_2)
+                        print(row_1)
+                        print(row_2)
+
