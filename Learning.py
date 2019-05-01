@@ -10,8 +10,11 @@ start_date = datetime.date(2017, 6, 13)
 
 
 def learn(h_list):
+    hyrax_dict, basestation_dict, start, end = pd.parse_details()
 
-    save_count_per_day_to_file(h_list)
+    days_cluster_list, night_cluster_list = get_cluster_per_day(hyrax_dict)
+
+    save_count_per_day_to_file(h_list, hyrax_dict)
 
     # hyrax_dict, basestation_dict, start, end = pd.parse_details()
     #
@@ -25,14 +28,12 @@ def learn(h_list):
     #     writer.writerow(["hyrax", "pair", "1_day_meet_count", "1_night_meet_count", "Sex", "did_meet"])
 
     # print(i)
-                # mtx_b = h.load_lil(h.get_npz_file_name(j, i))
+    # mtx_b = h.load_lil(h.get_npz_file_name(j, i))
 
-        # print(hyrax_dict[hy].sex)
+    # print(hyrax_dict[hy].sex)
 
 
-def save_count_per_day_to_file(h_list):
-    hyrax_dict, basestation_dict, start, end = pd.parse_details()
-
+def save_count_per_day_to_file(h_list, hyrax_dict):
     # days = h.initialize_days()
     date_times = h.initialize_specific_range()
 
@@ -56,8 +57,11 @@ def save_count_per_day_to_file(h_list):
                         days_count[delta.days] += 1
 
 
+def get_cluster_per_day(hyrax_dict):
+    days = []
+    nights = []
+    return days, nights
 
 def save_list(list_name, list_var):
-
     with open(list_name, "w") as file:
         file.write(str(list_var))
