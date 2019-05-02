@@ -16,6 +16,10 @@ start_date = datetime.date(2017, 6, 13)
 list_prefix = 'count-per-days-pairs/count_per_{}_for_{}-{}.txt'
 
 
+def learn(h_list):
+    days_cluster_list, night_cluster_list = get_cluster_per_day(h_list, min_meeting_length=20)
+
+
 def train(h_list):
 
     col_names = ["Hyrax", "Partner", "1_day_meet_count", "1_night_meet_count", "Sex", "Did_meet_night_later"]
@@ -41,7 +45,7 @@ def train(h_list):
 def make_db_for_tree(h_list):
     hyrax_dict, basestation_dict, start, end = pd.parse_details()
 
-    days_cluster_list, night_cluster_list = get_cluster_per_day(h_list, min_meeting_length=20)
+    # days_cluster_list, night_cluster_list = get_cluster_per_day(h_list, min_meeting_length=20)
 
     for i in h_list:
 
@@ -72,7 +76,6 @@ def make_db_for_tree(h_list):
 
                         writer = csv.writer(outcsv)
                         writer.writerow([i, j, last_day, last_night, hy_dict['Sex'], next_night])
-
 
 
 def save_count_per_day_to_file(h_list, hyrax_dict):
@@ -169,7 +172,6 @@ def create_clusters(dic_dates, min_meeting_length, date_times):
                         clusters[date][meeting.i] = i_cluster_val
                         clusters[date][meeting.j] = j_cluster_val
     return clusters
-
 
 
 def save_list(list_name, list_var):
