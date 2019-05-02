@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2cd1ba2-c8c8-4d10-8333-12579e3d4418" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Hyrax-Research.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Hyrax-Research.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Learning.py" beforeDir="false" afterPath="$PROJECT_DIR$/Learning.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +23,7 @@
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="158">
-              <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+              <caret line="19" column="27" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -34,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Learning.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-340">
-              <caret line="53" column="43" lean-forward="true" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
+            <state relative-caret-position="85">
+              <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -262,7 +262,7 @@
       <workItem from="1553688775312" duration="920000" />
       <workItem from="1554037556764" duration="80000" />
       <workItem from="1556622092505" duration="19396000" />
-      <workItem from="1556745525653" duration="7343000" />
+      <workItem from="1556745525653" duration="7824000" />
     </task>
     <task id="LOCAL-00001" summary="astral">
       <created>1542626264727</created>
@@ -369,11 +369,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556707456510</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="add things to learn function">
+      <created>1556802586648</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1556802586648</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110875000" />
+    <option name="totallyTimeSpent" value="111356000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -496,14 +503,15 @@
     <MESSAGE value="add get cluster for rivka to work" />
     <MESSAGE value="add csv files to folders" />
     <MESSAGE value="add the files" />
-    <option name="LAST_COMMIT_MESSAGE" value="add the files" />
+    <MESSAGE value="add things to learn function" />
+    <option name="LAST_COMMIT_MESSAGE" value="add things to learn function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Learning.py</url>
-          <line>61</line>
+          <line>45</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
@@ -633,7 +641,7 @@
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
-          <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+          <caret line="19" column="27" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
@@ -642,8 +650,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Learning.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-340">
-          <caret line="53" column="43" lean-forward="true" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
+        <state relative-caret-position="85">
+          <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>

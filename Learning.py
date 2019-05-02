@@ -16,7 +16,7 @@ start_date = datetime.date(2017, 6, 13)
 list_prefix = 'count-per-days-pairs/count_per_{}_for_{}-{}.txt'
 
 
-def learn(h_list):
+def train(h_list):
 
     col_names = ["Hyrax", "Partner", "1_day_meet_count", "1_night_meet_count", "Sex", "Did_meet_night_later"]
     pima = pan.read_csv('DB/dataSet.csv', header=None, names=col_names)
@@ -173,7 +173,7 @@ def create_clusters(dic_dates, min_meeting_length, date_times):
 
 
 def save_list(list_name, list_var):
-    with open(list_name, "a") as file:
+    with open(list_name, "w") as file:
         file.write(str(list_var))
 
 
