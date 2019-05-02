@@ -16,7 +16,7 @@ def main():
     # calculated_list = [4, 11, 24, 33, 39]
     calculated_list = [4, 11, 33]
 
-    lr.learn(calculated_list)
+    lr.learn(personal_list)
     # with open('dataSet.csv', 'a') as outcsv:
     #     writer = csv.writer(outcsv)
     #     writer.writerow(["pair", "1_day_meet_count", "1_night_meet_count", "Sex", "did_meet"])

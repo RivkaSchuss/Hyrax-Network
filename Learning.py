@@ -7,6 +7,7 @@ import pandas as pan
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
+import ast
 
 
 day_meet_count = 100
@@ -17,7 +18,12 @@ list_prefix = 'count-per-days-pairs/count_per_{}_for_{}-{}.txt'
 
 
 def learn(h_list):
-    days_cluster_list, night_cluster_list = get_cluster_per_day(h_list, min_meeting_length=20)
+    days_cluster_list, night_cluster_list = get_cluster_per_day(h_list, min_meeting_length=day_meet_count)
+    save_list("day_clusters", days_cluster_list)
+    save_list("night_clusters", night_cluster_list)
+    day_list = eval_list("day_clusters")
+    night_list = eval_list("night_clusters")
+    print("done")
 
 
 def train(h_list):
@@ -112,8 +118,8 @@ def get_cluster_per_day(h_list, min_meeting_length):
     nights = dict()
     date_times = h.initialize_specific_range()
     for date in date_times:
-        days[date] = list()
-        nights[date] = list()
+        days[date.date] = list()
+        nights[date.date] = list()
     for i in h_list:
         for j in h_list:
             if i != j:
@@ -136,15 +142,15 @@ def get_cluster_per_day(h_list, min_meeting_length):
                         meeting_counter += 1
 
     day_clusters = create_clusters(days, min_meeting_length, date_times)
-    # night_clusters = create_clusters(nights, min_meeting_length, date_times)
+    night_clusters = create_clusters(nights, min_meeting_length, date_times)
 
-    return day_clusters, #night_clusters
+    return day_clusters, night_clusters
 
 
 def create_clusters(dic_dates, min_meeting_length, date_times):
     clusters = dict()
     for date in date_times:
-        clusters[date] = dict()
+        clusters[date.date] = dict()
     for date, meetings in dic_dates.items():
         cluster_count_day = 1
         for meeting in meetings:
@@ -173,6 +179,19 @@ def create_clusters(dic_dates, min_meeting_length, date_times):
 def save_list(list_name, list_var):
     with open(list_name, "w") as file:
         file.write(str(list_var))
+
+
+def eval_list(list_name):
+    with open(list_name, "r") as file:
+        s = file.read()
+        list = eval(s)
+
+    return list
+
+def determine_cluster(hyrax_1, hyrax_2):
+    same_cluster = False
+
+    return same_cluster
 
 
 class Meeting:
