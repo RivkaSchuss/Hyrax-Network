@@ -136,9 +136,9 @@ def get_cluster_per_day(h_list, min_meeting_length):
                         meeting_counter += 1
 
     day_clusters = create_clusters(days, min_meeting_length, date_times)
-    night_clusters = create_clusters(nights, min_meeting_length, date_times)
+    # night_clusters = create_clusters(nights, min_meeting_length, date_times)
 
-    return day_clusters, night_clusters
+    return day_clusters, #night_clusters
 
 
 def create_clusters(dic_dates, min_meeting_length, date_times):
@@ -161,13 +161,9 @@ def create_clusters(dic_dates, min_meeting_length, date_times):
                         clusters[date][meeting.j] = cluster_count_day
                         clusters[date][meeting.i] = cluster_count_day
                     elif i_cluster_val is not None and j_cluster_val is None:
-                        cluster_count_day += 1
-                        clusters[date][meeting.j] = cluster_count_day
-                        clusters[date][meeting.i] = i_cluster_val
+                        clusters[date][meeting.j] = i_cluster_val
                     elif j_cluster_val is not None and i_cluster_val is None:
-                        cluster_count_day += 1
-                        clusters[date][meeting.i] = cluster_count_day
-                        clusters[date][meeting.j] = j_cluster_val
+                        clusters[date][meeting.i] = j_cluster_val
                     else:
                         clusters[date][meeting.i] = i_cluster_val
                         clusters[date][meeting.j] = j_cluster_val
