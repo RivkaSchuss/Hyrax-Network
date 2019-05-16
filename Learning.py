@@ -8,78 +8,115 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
+from sklearn.tree import export_graphviz
+from sklearn.externals.six import StringIO
+from IPython.display import Image
+import pydotplus
 
 day_meet_count = 100
 night_meet_count = 100
 
+total_days_range = 60
+
 start_date = datetime.date(2017, 6, 13)
 list_prefix = 'count-per-days-pairs/count_per_{}_for_{}-{}.txt'
+db_global_name = 'DB/data_{}.csv'.format(datetime.datetime.now().strftime("%H%M_%S%f_%B_%d_%Y"))
 
 
 def learn(h_list):
     days_cluster_list, night_cluster_list = get_cluster_per_day(h_list, min_meeting_length=20)
 
 
-def train(h_list):
-
-    col_names = ["Hyrax", "Partner", "1_day_meet_count", "1_night_meet_count", "Sex", "Did_meet_night_later"]
-    pima = pan.read_csv('DB/dataSet.csv', header=None, names=col_names)
-    feture_cols = ["1_day_meet_count", "1_night_meet_count", "Did_meet_night_later"]
-    x = pima[feture_cols]
+def train(h_list, last_n_list_param, should_make_graph=True):
+    col_names = ["Hyrax", "Partner"]
+    feature_cols = ["Sex"]
+    for n in last_n_list_param:
+        feature_cols.extend([str(n) + '_day_meet_count', str(n) + '_night_meet_count'])
+    col_names.extend(feature_cols)
+    col_names.append("Did_meet_night_later")
+    pima = pan.read_csv(db_global_name, header=None, names=col_names)
+    x = pima[feature_cols]
     y = pima.Did_meet_night_later
 
-    x_train, x_test, y_train,y_test = train_test_split(x, y, test_size=0.9, random_state=1)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=1)
 
-    clf = DecisionTreeClassifier()
+    clf = DecisionTreeClassifier("entropy", max_depth=4)
     clf = clf.fit(x_train, y_train)
 
     y_pred = clf.predict(x_test)
+    print(last_n_list_param)
+    acc = metrics.accuracy_score(y_test, y_pred)
+    print("Accuracy:", acc)
 
-    print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
+    if should_make_graph:
+        dot_data = StringIO()
+        export_graphviz(clf, out_file=dot_data,
+                        filled=True, rounded=True,
+                        special_characters=True, feature_names=feature_cols, class_names=['False', 'True'])
+        graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
+        graph.write_png('tree.png')
+        Image(graph.create_png())
+    return acc
 
-    # days_cluster_list, night_cluster_list = get_cluster_per_day(hyrax_dict)
 
-    # make_db_for_tree(h_list)
-
-
-def make_db_for_tree(h_list):
+def make_db_for_tree(h_list, last_n_list_param):
+    db_name = db_global_name
     hyrax_dict, basestation_dict, start, end = pd.parse_details()
 
-    # days_cluster_list, night_cluster_list = get_cluster_per_day(h_list, min_meeting_length=20)
-
+    calc_list = []
     for i in h_list:
-
-        hy_dict = {}
-        hy_dict["hyrax"] = i
-        hy_dict['Sex'] = hyrax_dict[i].sex
+        calc_list.append(i)
+        hy_dict = {"hyrax": i}
+        if hyrax_dict[i].sex == 'M':
+            hy_dict['Sex'] = 1
+        else:
+            hy_dict['Sex'] = 0
         for j in h_list:
             if i != j:
-                day_list = []
-                night_list = []
-                last_day = 'not_assigned'
-                last_night = 'not_assigned'
-                next_night = 'not_assigned'
                 with open(list_prefix.format('day', i, j), 'r') as file:
                     day_list = eval(file.readline())
 
                 with open(list_prefix.format('night', i, j), 'r') as file:
                     night_list = eval(file.readline())
 
-                with open('DB/dataSet.csv', 'a', newline='') as outcsv:
-                    for d in range(60):
-                        last_day = day_list[d]
-                        last_night = night_list[d]
-                        if night_list[d+1] > night_meet_count:
+                with open(db_name, 'a', newline='') as outcsv:
+                    for d in range(total_days_range):
+                        last_n_list = []
+                        for n in last_n_list_param:
+                            last_n_days, last_n_nights = get_last_n_days(day_list, night_list, n, d)
+                            last_n_list.append((last_n_days, last_n_nights))
+                        if night_list[d + 1] > night_meet_count:
                             next_night = True
                         else:
                             next_night = False
-
+                        if check_if_one_is_zero(last_n_list):
+                            continue
+                        row = [i, j, hy_dict['Sex']]
+                        for last in last_n_list:
+                            row.extend([last[0], last[1]])
+                        row.append(next_night)
                         writer = csv.writer(outcsv)
-                        writer.writerow([i, j, last_day, last_night, hy_dict['Sex'], next_night])
+                        writer.writerow(row)
+
+
+def check_if_one_is_zero(last_n_list):
+    for last in last_n_list:
+        if last[0] == 0 and last[1] == 0:
+            return True
+    return False
+
+
+def get_last_n_days(day_list, night_list, n, index):
+    last_n_day = 0
+    last_n_night = 0
+    for i in range(n):
+        if index - i > 0:
+            last_n_day += day_list[index - i]
+            last_n_night += night_list[index - i]
+    return last_n_day, last_n_night
 
 
 def save_count_per_day_to_file(h_list, hyrax_dict):
-    # days = h.initialize_days()
     date_times = h.initialize_specific_range()
 
     for i in h_list:
@@ -100,11 +137,9 @@ def save_count_per_day_to_file(h_list, hyrax_dict):
                         night_count[delta.days] += 1
                     else:
                         days_count[delta.days] += 1
-                # list_prefix = 'count-per-days-pairs/count_per_{}_for_{}-{}.txt'
 
                 save_list(list_prefix.format('day', str(i), str(j)), days_count)
                 save_list(list_prefix.format('night', str(i), str(j)), night_count)
-                # print("here")
 
 
 def get_cluster_per_day(h_list, min_meeting_length):
@@ -184,4 +219,3 @@ class Meeting:
         self.i = i
         self.j = j
         self.length = length
-
