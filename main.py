@@ -15,8 +15,10 @@ import itertools
 
 
 def main():
+
     personal_list = [2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 14, 19, 21, 22, 23, 24, 25, 26, 29, 33, 36, 39]
     # calculated_list = [4, 11, 24, 33, 39]
+    calculated_list = [4, 11, 24]
 
     last_n_days = [9, 10]
     lr.make_db_for_tree(personal_list, last_n_days)

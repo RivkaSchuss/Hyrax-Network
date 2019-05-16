@@ -429,41 +429,31 @@ def exmp(personal_list, calc_list):
                         print(row_2)
 
 
-# def initialize_days():
-#     days_monitored = list()
-#
-#     length_day = length_of_day
-#     current_day = []
-#     start = 0
-#     for i in range(61):
-#         for j in range(int(length_day)):
-#             current_day.append(start)
-#             start += 1
-#         copy = current_day.copy()
-#         days_monitored.append(copy)
-#
-#         current_day.clear()
-#     # print(days_monitored)
-#     return days_monitored
-#
-#
-# def find_time(days, second):
-#     search = second
-#     for day in days:
-#         for sec_day in day:
-#             if sec_day == search:
-#                 return days.index(day), day.index(sec_day)
-
-
 def initialize_specific_range():
     days = []
     start_date = datetime.date(2017, 6, 13)
     end_date = datetime.date(2017, 8, 13)
     dates = [start_date + datetime.timedelta(days=x) for x in range(0, (end_date-start_date).days)]
+
     for date in dates:
-        days.append(date)
+        day_range = determine_day_range(date)
+        new_day = Date(date, day_range)
+        days.append(new_day)
     return days
-    # print(days)
+
+
+def determine_day_range(date):
+    # night_range = []
+    ein_gedi = ephem.Observer()
+    ein_gedi.date = ephem.Date(date)
+    ein_gedi.lat = '31.46720101'
+    ein_gedi.lon = '35.39643957'
+    end_time = ein_gedi.next_setting(ephem.Sun()).datetime()
+    start_time = ein_gedi.next_rising(ephem.Sun()).datetime()
+
+    day_range = [start_time + datetime.timedelta(seconds=x) for x in range(0, (end_time-start_time).seconds)]
+
+    return day_range
 
 
 def determine_time(second):
@@ -483,20 +473,36 @@ def get_time_of_day(dates, second):
     day = int(second/length_of_day)
     date = dates[day]
     spec_time = determine_time(second)
-    date_time = datetime.datetime.combine(date, spec_time)
+    date_time = datetime.datetime.combine(date.date, spec_time)
+    #
+    # ein_gedi = ephem.Observer()
+    # ein_gedi.date = ephem.Date(date_time)
+    # ein_gedi.lat = '31.46720101'
+    # ein_gedi.lon = '35.39643957'
+    # next_sunrise = ein_gedi.next_rising(ephem.Sun()).datetime()
+    # next_sunset = ein_gedi.next_setting(ephem.Sun()).datetime()
+    # if next_sunset < next_sunrise:
+    #     night = 0
+    # else:
+    #     night = 1
 
-    ein_gedi = ephem.Observer()
-    ein_gedi.date = ephem.Date(date_time)
-    ein_gedi.lat = '31.46720101'
-    ein_gedi.lon = '35.39643957'
-    next_sunrise = ein_gedi.next_rising(ephem.Sun()).datetime()
-    next_sunset = ein_gedi.next_setting(ephem.Sun()).datetime()
-    if next_sunset < next_sunrise:
+    day_range = date.day_range
+
+    start_time = day_range[0]
+    end_time = day_range[-1]
+    if start_time < date_time < end_time:
         night = 0
     else:
         night = 1
 
-    return date, spec_time, night
+    return date.date, spec_time, night
+
+
+class Date:
+    def __init__(self, date, day_range):
+        self.date = date
+        self.day_range = day_range
+
 
 
 
