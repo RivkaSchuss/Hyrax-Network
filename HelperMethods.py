@@ -449,7 +449,9 @@ def determine_day_range(date):
     ein_gedi.lat = '31.46720101'
     ein_gedi.lon = '35.39643957'
     end_time = ein_gedi.next_setting(ephem.Sun()).datetime()
+    end_time = end_time + datetime.timedelta(hours=3)
     start_time = ein_gedi.next_rising(ephem.Sun()).datetime()
+    start_time = start_time + datetime.timedelta(hours=3)
 
     day_range = [start_time + datetime.timedelta(seconds=x) for x in range(0, (end_time-start_time).seconds)]
 
@@ -474,17 +476,6 @@ def get_time_of_day(dates, second):
     date = dates[day]
     spec_time = determine_time(second)
     date_time = datetime.datetime.combine(date.date, spec_time)
-    #
-    # ein_gedi = ephem.Observer()
-    # ein_gedi.date = ephem.Date(date_time)
-    # ein_gedi.lat = '31.46720101'
-    # ein_gedi.lon = '35.39643957'
-    # next_sunrise = ein_gedi.next_rising(ephem.Sun()).datetime()
-    # next_sunset = ein_gedi.next_setting(ephem.Sun()).datetime()
-    # if next_sunset < next_sunrise:
-    #     night = 0
-    # else:
-    #     night = 1
 
     day_range = date.day_range
 
