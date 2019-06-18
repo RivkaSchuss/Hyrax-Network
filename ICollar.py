@@ -133,23 +133,6 @@ class Hyrax(ICollar):
 
     def get_date_off(self):
         return self.date_off
-    #
-    # def print_details(self):
-    #     print "collar_id" + self.collar_id
-    #     print self.serial_number
-    #     print self.chip
-    #     print self.tag
-    #     print self.old_collar
-    #     print self.canyon
-    #     print self.group
-    #     print self.sex
-    #     print self.weight
-    #     print self.date_on
-    #     print self.date_off
-    #     print self.seconds_off
-    #     print self.daily_offset
-    #     print self.data_points
-    #     print self.comments
 
 
 class BaseStation(ICollar):
@@ -175,10 +158,8 @@ class Encounter:
         self.length = int(length)
 
     def set_full_date(self, current_date, start_time):
-        # spl = date.split("/")
         d = datetime.datetime(int(current_date[2]), int(current_date[1]), int(current_date[0]), int(start_time[0]),
                               int(start_time[1]), int(start_time[2]))
-        # c = d.time.replace(hour=start_time[0])
         return d
 
     def get_personal_id(self):

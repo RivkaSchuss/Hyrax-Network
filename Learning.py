@@ -14,11 +14,11 @@ from IPython.display import Image
 import pydotplus
 
 day_meet_count = 100
-night_meet_count = 200
+predict_meet_count = 900
 tree_depth = 3
 
 start_hour_range = 5
-end_hour_range = 16
+end_hour_range = 18
 
 total_days_range = 60
 
@@ -36,24 +36,19 @@ both_bachelors = -2
 
 start_date = datetime.date(2017, 6, 13)
 list_prefix = 'count-per-days-pairs/count_per_{}_for_{}-{}.txt'
-# list_prefix = 'count-per-days-pairs-one-hour-to-dawn/count_per_{}_for_{}-{}.txt'
 db_global_name = 'DB/data_{}.csv'.format(datetime.datetime.now().strftime("%H%M_%S%f_%B_%d_%Y"))
 db_hours_global_name = 'DB/data_hours_{}.csv'.format(datetime.datetime.now().strftime("%H%M_%S%f_%B_%d_%Y"))
 list_hours_prefix = 'count-per-hours-pairs/count_hour_for_{}-{}.txt'
 
 
-def learn(h_list):
-    days_cluster_list, night_cluster_list = get_cluster_per_day(h_list, min_meeting_length=day_meet_count)
-    save_list("day_clusters", days_cluster_list)
-    save_list("night_clusters", night_cluster_list)
-    day_list = eval_list("day_clusters")
-    night_list = eval_list("night_clusters")
-    print("done")
+def make_db_and_train_by_hours(h_list, should_make_graph=True):
+    make_db_by_hours(h_list)
+    hours_train(h_list, should_make_graph)
 
 
 def make_db_by_hours(h_list):
     db_name = db_hours_global_name
-    hyrax_dict, basestation_dict, start, end = pd.parse_details()
+    # hyrax_dict, basestation_dict, start, end = pd.parse_details()
     calc_list = []
     for i in h_list:
         calc_list.append(i)
@@ -77,7 +72,7 @@ def make_db_by_hours(h_list):
                             continue
                         row = [i, j]
                         row.extend(hour_list[d][start_hour_range:end_hour_range])
-                        if night_list[d + 1] > night_meet_count:
+                        if night_list[d + 1] > predict_meet_count:
                             next_night = True
                         else:
                             next_night = False
@@ -86,7 +81,7 @@ def make_db_by_hours(h_list):
                         writer.writerow(row)
 
 
-def hours_train(h_list):
+def hours_train(h_list, should_make_graph):
     col_names = ["Hyrax", "Partner"]
     feature_cols = []
 
@@ -101,7 +96,7 @@ def hours_train(h_list):
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
 
-    clf = DecisionTreeClassifier("entropy", max_depth=3)
+    clf = DecisionTreeClassifier("entropy", max_depth=tree_depth)
     clf = clf.fit(x_train, y_train)
 
     y_pred = clf.predict(x_test)
@@ -109,22 +104,21 @@ def hours_train(h_list):
     acc = metrics.accuracy_score(y_test, y_pred)
     print("Accuracy:", acc)
 
-    # print(metrics.f1_score(y_pred, y_test, average='macro'))
-    # print(metrics.f1_score(y_pred, y_test, average='micro'))
-    # print(metrics.f1_score(y_pred, y_test, average='weighted'))
-    # print(metrics.f1_score(y_pred, y_test, average=None))
-    #
-    # print(metrics.recall_score(y_test, y_pred, average='macro'))
-    # print(metrics.recall_score(y_test, y_pred, average='micro'))
-    # print(metrics.recall_score(y_test, y_pred, average='weighted'))
-    # print(metrics.recall_score(y_test, y_pred, average=None))
-    #
-    # print(metrics.precision_score(y_test, y_pred, average='macro'))
-    # print(metrics.precision_score(y_test, y_pred, average='micro'))
-    # print(metrics.precision_score(y_test, y_pred, average='weighted'))
-    # print(metrics.precision_score(y_test, y_pred, average=None))
+    print("F_Score: " + str(metrics.f1_score(y_test, y_pred, average='weighted')))
 
-    if True:
+    print("Recall: " + str(metrics.recall_score(y_test, y_pred, average='weighted')))
+
+    print("Precision: " + str(metrics.precision_score(y_test, y_pred, average='weighted')))
+
+    reg = DecisionTreeRegressor(max_depth=tree_depth, criterion="mse")
+    reg.fit(x_train, y_train)
+    # y_pred can be used to give likelihood to meet the next day
+    y_pred = reg.predict(x_test)
+
+    score = reg.score(x_train, y_train)
+    print("Regression Score:", score)
+
+    if should_make_graph:
         dot_data = StringIO()
         export_graphviz(clf, out_file=dot_data,
                         filled=True, rounded=True,
@@ -174,24 +168,17 @@ def train(h_list, last_n_list_param=None, sex=False, group=False, canyon=False, 
     acc = metrics.accuracy_score(y_test, y_pred)
     print("Accuracy:", acc)
 
-    print(metrics.f1_score(y_pred, y_test, average='micro'))
-    print(metrics.f1_score(y_pred, y_test, average='macro'))
-    print(metrics.f1_score(y_pred, y_test, average='weighted'))
-    print(metrics.f1_score(y_pred, y_test, average=None))
+    print("F_Score: " + str(metrics.f1_score(y_pred, y_test, average='weighted')))
 
-    print(metrics.recall_score(y_test, y_pred, average='macro'))
-    print(metrics.recall_score(y_test, y_pred, average='micro'))
-    print(metrics.recall_score(y_test, y_pred, average='weighted'))
-    print(metrics.recall_score(y_test, y_pred, average=None))
+    print("Recall: " + str(metrics.recall_score(y_test, y_pred, average='weighted')))
 
-    print(metrics.precision_score(y_test, y_pred, average='macro'))
-    print(metrics.precision_score(y_test, y_pred, average='micro'))
-    print(metrics.precision_score(y_test, y_pred, average='weighted'))
-    print(metrics.precision_score(y_test, y_pred, average=None))
+    print("Precision: " + str(metrics.precision_score(y_test, y_pred, average='weighted')))
 
-    reg = DecisionTreeRegressor(max_depth=tree_depth)
+    reg = DecisionTreeRegressor(max_depth=tree_depth, criterion="mse")
     reg.fit(x_train, y_train)
+    # y_pred can be used to give likelihood to meet the next day
     y_pred = reg.predict(x_test)
+
     score = reg.score(x_train, y_train)
     print("Regression Score:", score)
 
@@ -206,15 +193,13 @@ def train(h_list, last_n_list_param=None, sex=False, group=False, canyon=False, 
     return acc
 
 
-def make_db_for_tree(h_list, last_n_list_param=None, sex=False, group=False, canyon=False):
+def make_db_for_tree(h_list, last_n_list_param=None, sex=False, group=False, canyon=False, predict_night=False):
     db_name = db_global_name
     hyrax_dict, basestation_dict, start, end = pd.parse_details()
 
     calc_list = []
     for i in h_list:
         calc_list.append(i)
-        # if hyrax_dict[i].canyon == 'David':
-        #     continue
         for j in h_list:
             if i != j:
 
@@ -230,14 +215,19 @@ def make_db_for_tree(h_list, last_n_list_param=None, sex=False, group=False, can
                         for n in last_n_list_param:
                             last_n_days, last_n_nights = get_last_n_days(day_list, night_list, n, d)
                             last_n_list.append((last_n_days, last_n_nights))
-                        if night_list[d + 1] > night_meet_count:
-                            next_night = True
+
+                        if predict_night:
+                            predict_list = night_list[d + 1]
                         else:
-                            next_night = False
+                            predict_list = day_list[d + 1]
+
+                        if predict_list > predict_meet_count:
+                            predict = True
+                        else:
+                            predict = False
                         if check_if_one_is_zero(last_n_list):
                             continue
 
-                        # row = [i, j, sex_value, group_value, canyon_value]
                         row = [i, j]
                         if sex:
                             row.append(assign_sex_value(hyrax_dict[i].sex, hyrax_dict[j].sex))
@@ -247,14 +237,12 @@ def make_db_for_tree(h_list, last_n_list_param=None, sex=False, group=False, can
                             row.append(assign_canyon_value(hyrax_dict[i].canyon, hyrax_dict[j].canyon))
                         for last in last_n_list:
                             row.extend([last[0], last[1]])
-                        row.append(next_night)
+                        row.append(predict)
                         writer = csv.writer(outcsv)
                         writer.writerow(row)
 
 
-def make_histogram(h_list):
-    diff = 100
-    min_value = 10
+def make_histogram(h_list, is_night=False, diff=100, min_value=10, csv_name="histogram.csv"):
     max_value = min_value + diff
     calc_list = []
     intervals = int((8 * 3600) / diff) - 100
@@ -268,18 +256,17 @@ def make_histogram(h_list):
 
             for j in h_list:
                 if i != j:
+                    if is_night:
+                        with open(list_prefix.format('night', i, j), 'r') as file:
+                            list_to_insert = eval(file.readline())
+                    else:
+                        with open(list_prefix.format('day', i, j), 'r') as file:
+                            list_to_insert = eval(file.readline())
 
-                    # with open(list_prefix.format('day', i, j), 'r') as file:
-                    #     day_list = eval(file.readline())
-
-                    with open(list_prefix.format('night', i, j), 'r') as file:
-                        night_list = eval(file.readline())
-
-                    for night in night_list:
-                        if (max_value + size) > night > (min_value + size):
+                    for time_interval in list_to_insert:
+                        if (max_value + size) > time_interval > (min_value + size):
                             total += 1
         interval_dict[interval, min_value + size, max_value + size] = total
-    csv_name = "histogram.csv"
     with open(csv_name, 'w') as file:
         file.write("%s,%s,%s\n" % ("Iter", "min_value", "max_value"))
         for key, value in interval_dict.items():
@@ -385,69 +372,6 @@ def save_count_per_day_to_file(h_list, hyrax_dict):
                 save_list(list_prefix.format('night', str(i), str(j)), night_count)
 
 
-def get_cluster_per_day(h_list, min_meeting_length):
-    days = dict()
-    nights = dict()
-    date_times = h.initialize_specific_range()
-    for date in date_times:
-        days[date.date] = list()
-        nights[date.date] = list()
-    for i in h_list:
-        for j in h_list:
-            if i != j:
-                mtx_a = h.load_lil(h.get_npz_file_name(i, j))
-                non_zero = mtx_a.nonzero()[1]
-                current_date = None
-                meeting_counter = 0
-                for v in non_zero:
-                    date, time, night = h.get_time_of_day(date_times, v)
-                    if meeting_counter == 0:
-                        current_date = date
-                    if current_date is not date:
-                        if night == 1:
-                            nights[current_date].append(Meeting(i, j, meeting_counter))
-                        else:
-                            days[current_date].append(Meeting(i, j, meeting_counter))
-                        meeting_counter = 0
-                        continue
-                    else:
-                        meeting_counter += 1
-
-    day_clusters = create_clusters(days, min_meeting_length, date_times)
-    night_clusters = create_clusters(nights, min_meeting_length, date_times)
-
-    return day_clusters, night_clusters
-
-
-def create_clusters(dic_dates, min_meeting_length, date_times):
-    clusters = dict()
-    for date in date_times:
-        clusters[date.date] = dict()
-    for date, meetings in dic_dates.items():
-        cluster_count_day = 1
-        for meeting in meetings:
-            length = meeting.length
-            if length >= min_meeting_length:
-                if len(clusters[date]) == 0:
-                    clusters[date][meeting.j] = cluster_count_day
-                    clusters[date][meeting.i] = cluster_count_day
-                else:
-                    i_cluster_val = clusters[date].get(meeting.i)
-                    j_cluster_val = clusters[date].get(meeting.j)
-                    if i_cluster_val is None and j_cluster_val is None:
-                        cluster_count_day += 1
-                        clusters[date][meeting.j] = cluster_count_day
-                        clusters[date][meeting.i] = cluster_count_day
-                    elif i_cluster_val is not None and j_cluster_val is None:
-                        clusters[date][meeting.j] = i_cluster_val
-                    elif j_cluster_val is not None and i_cluster_val is None:
-                        clusters[date][meeting.i] = j_cluster_val
-                    else:
-                        clusters[date][meeting.i] = i_cluster_val
-                        clusters[date][meeting.j] = j_cluster_val
-    return clusters
-
-
 def save_list(list_name, list_var):
     with open(list_name, "w") as file:
         file.write(str(list_var))
@@ -459,12 +383,6 @@ def eval_list(list_name):
         list = eval(s)
 
     return list
-
-
-def determine_cluster(hyrax_1, hyrax_2):
-    same_cluster = False
-
-    return same_cluster
 
 
 class Meeting:

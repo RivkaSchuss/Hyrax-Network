@@ -39,7 +39,7 @@ def parse_details():
                 print(e)
                 break
             i += 1
-            f.close
+
     last_on = datetime.date(2000, 1, 1)
     first_off = datetime.date(2030, 1, 1)
     for key, hyrax in hyrax_dict.items():

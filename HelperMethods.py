@@ -12,7 +12,7 @@ import time
 
 amount_of_seconds = 5270400
 length_of_day = 86400
-
+lil_mtx_dir = 'LIL_mtx'
 
 def add_all_encounters(hyrax_dict, start_date, end_date):
     encounter_list = []
@@ -85,12 +85,15 @@ def add_values_to_lil(lil, row_to_add, i, j):
 
 
 def get_npz_file_name(num1, num2):
-    filename = 'LIL_mtx//LIL[' + str(num1) + "-" + str(num2) + '].npz'
-    # filename = 'LIL_mtx\\LIL[' + str(num1) + "-" + str(num2) + '].npz'
+    filename = lil_mtx_dir + '//LIL[' + str(num1) + "-" + str(num2) + '].npz'
     return filename
 
 
-def save_encounters_to_files():
+def save_encounters_to_files(directory):
+    import os
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
     start_experiment_date = datetime.datetime(2017, 6, 13, 00, 00)
     hyrax_dict, base_station_dict, last_on, first_off = ParseDetails.parse_details()
 
@@ -110,7 +113,6 @@ def save_encounters_to_files():
         mtx = lil_matrix((1, amount_of_seconds))
         personal, other_hyrax = key
         filename = get_npz_file_name(personal, other_hyrax)
-        # if personal == 2:
 
         for e in encounters_list:
             k += 1
@@ -173,7 +175,6 @@ def run_all_pairs_per_day(personal_list, calc_list):
                     file_b = get_npz_file_name(j, i)
                     mtx_a = load_lil(file_a)
                     mtx_b = load_lil(file_b)
-                    # a_xor_b, a_union_b, a_to_b, b_to_a = calc_enc_bet_mtx(mtx_a, mtx_b)
                     values_per_day = calc_enc_bet_mtx(mtx_a, mtx_b)
                     row_1 = [str(i) + '->' + str(j)]
                     if values_per_day:
@@ -183,16 +184,11 @@ def run_all_pairs_per_day(personal_list, calc_list):
 
                     calculated_list.append((i, j))
                     calculated_list.append((j, i))
-                    # row_1 = [str(i) + '->' + str(j)]
 
-                    # row_1 = [str(i) + '->' + str(j), a_xor_b, a_union_b, a_to_b, b_to_a]
-                    # row_2 = [str(j) + '->' + str(i), a_xor_b, a_union_b, b_to_a, a_to_b]
                     with open('EncountersInfoPerDay.csv', 'a', newline='') as f:
                         writer = csv.writer(f)
                         writer.writerow(row_1)
-                        # writer.writerow(row_2)
                         print(row_1)
-                        # print(row_2)
 
 
 def run_all_pairs(personal_list, calc_list):
@@ -218,7 +214,7 @@ def run_all_pairs(personal_list, calc_list):
                         print(row_2)
 
 
-def run_diff_per_days_for_all_pairs(personal_list, calc_list):
+def run_diff_per_days_for_all_pairs(personal_list, calc_list, max_value_for_offset):
     calculated_list = calc_list
     for i in personal_list:
         for j in personal_list:
@@ -228,10 +224,12 @@ def run_diff_per_days_for_all_pairs(personal_list, calc_list):
                     file_b = get_npz_file_name(j, i)
                     mtx_a = load_lil(file_a)
                     mtx_b = load_lil(file_b)
-                    days_agreement_dictionary_a_to_b = calc_enc_bet_mtx_for_diff_of_days(mtx_a, mtx_b, 190)
+                    days_agreement_dictionary_a_to_b = calc_enc_bet_mtx_for_diff_of_days(mtx_a, mtx_b,
+                                                                                         max_value_for_offset)
                     mtx_a = load_lil(file_a)
                     mtx_b = load_lil(file_b)
-                    days_agreement_dictionary_b_to_a = calc_enc_bet_mtx_for_diff_of_days(mtx_b, mtx_a, 190)
+                    days_agreement_dictionary_b_to_a = calc_enc_bet_mtx_for_diff_of_days(mtx_b, mtx_a,
+                                                                                         max_value_for_offset)
                     calculated_list.append((i, j))
                     calculated_list.append((j, i))
                     # row_1 = [str(i) + '->' + str(j)]
@@ -246,7 +244,7 @@ def run_diff_per_days_for_all_pairs(personal_list, calc_list):
                         # row_1.append(key)
                         row_3.append(value)
                     row = row_mid + row_3
-                    with open('exmp.csv', 'a', newline='') as f:
+                    with open('EncountersInfo.csv', 'a', newline='') as f:
                         writer = csv.writer(f)
                         # writer.writerow(row_1)
                         writer.writerow(row)
@@ -332,9 +330,7 @@ def count_total_encounters_for_pair(personal_list, calc_list):
                     with open('Count_per_pair.csv', 'a', newline='') as f:
                         writer = csv.writer(f)
                         writer.writerow(row_1)
-                        # writer.writerow(row_2)
                         print(row_1)
-                        # print(row_2)
 
 
 def read_encounters_count():
@@ -351,7 +347,7 @@ def read_encounters_count():
 
 def find_offset_to_maximize_agreement():
     dict = {}
-    with open('AgreementForDayDiff190.csv', mode='r') as f:
+    with open('EncountersInfo.csv', mode='r') as f:
         reader = csv.reader(f)
         my_list = list(reader)
         offset_list = my_list[0]
@@ -381,12 +377,14 @@ def parse_asymetric_pair_to_tuple(key):
     return tup
 
 
-def fix_offset(offset_dic, encounters_count_dic):
-
+def fix_offset(offset_dic, directory):
+    import os
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     for key, value in offset_dic.items():
 
         if value != 'null':
-            if not os.path.isfile('LIL_mtx_new//LIL[' + str(key[0]) + "-" + str(key[1]) + '].npz'):
+            if not os.path.isfile(directory + '//LIL[' + str(key[0]) + "-" + str(key[1]) + '].npz'):
 
                 file_a = get_npz_file_name(key[0], key[1])
                 file_b = get_npz_file_name(key[1], key[0])
@@ -401,8 +399,8 @@ def fix_offset(offset_dic, encounters_count_dic):
                         if col < 5270400:
                             mtx_a[[0], [col]] = 1
                         # 'LIL_mtx_new//LIL[' + str(key[0]) + "-" + str(key[1]) + '].npz'
-                    save_lil('LIL_mtx_new//LIL[' + str(key[0]) + "-" + str(key[1]) + '].npz', mtx_a)
-                    save_lil('LIL_mtx_new//LIL[' + str(key[1]) + "-" + str(key[0]) + '].npz', mtx_b)
+                    save_lil(directory + '//LIL[' + str(key[0]) + "-" + str(key[1]) + '].npz', mtx_a)
+                    save_lil(directory + '//LIL[' + str(key[1]) + "-" + str(key[0]) + '].npz', mtx_b)
 
 
 # i don't remember why i used exmp func"
@@ -433,7 +431,7 @@ def initialize_specific_range():
     days = []
     start_date = datetime.date(2017, 6, 13)
     end_date = datetime.date(2017, 8, 13)
-    dates = [start_date + datetime.timedelta(days=x) for x in range(0, (end_date-start_date).days)]
+    dates = [start_date + datetime.timedelta(days=x) for x in range(0, (end_date - start_date).days)]
 
     for date in dates:
         day_range = determine_day_range(date)
@@ -453,13 +451,12 @@ def determine_day_range(date):
     start_time = ein_gedi.next_rising(ephem.Sun()).datetime()
     start_time = start_time + datetime.timedelta(hours=3)
 
-    day_range = [start_time + datetime.timedelta(seconds=x) for x in range(0, (end_time-start_time).seconds)]
+    day_range = [start_time + datetime.timedelta(seconds=x) for x in range(0, (end_time - start_time).seconds)]
 
     return day_range
 
 
 def determine_time(second):
-    # day = second // (24 * 3600)
     second = second % (24 * 3600)
     hour = second // 3600
     second %= 3600
@@ -471,8 +468,7 @@ def determine_time(second):
 
 def get_time_of_day(dates, second):
     night = 0
-    # day, sec_found = find_time(days, second)
-    day = int(second/length_of_day)
+    day = int(second / length_of_day)
     date = dates[day]
     spec_time = determine_time(second)
     date_time = datetime.datetime.combine(date.date, spec_time)
@@ -493,11 +489,3 @@ class Date:
     def __init__(self, date, day_range):
         self.date = date
         self.day_range = day_range
-
-
-
-
-
-
-
-
