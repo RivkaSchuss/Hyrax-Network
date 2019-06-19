@@ -1,7 +1,6 @@
 # coding: utf-8
 import csv
 import ICollar
-import sys, traceback
 import datetime
 
 
@@ -16,7 +15,6 @@ def parse_details():
         first_row = next(reader)
         attribute_list = first_row[0].split(";")
         attribute_list[0] = "collar_id"
-        # print attribute_list
         i = 1
         while True:
             try:
@@ -32,10 +30,8 @@ def parse_details():
                     continue
                 if split_line[attribute_list.index("Tag")] == "AK":
                     continue
-                # hyrax_dict[splitted[0]] = ICollar.Hyrax(splitted[0], splitted)
                 hyrax_dict[int(split_line[0])] = collars.Hyrax(split_line[0], split_line, real_data_path)
             except Exception as e:
-                # traceback.print_exc(file=sys.stdout)
                 print(e)
                 break
             i += 1
@@ -75,8 +71,5 @@ def parse_details():
                     if len(str(e)) > 1:
                         print(e)
                     break
-            f.close
-
-    # print first_row
 
     return hyrax_dict, base_station_dict, last_on, first_off

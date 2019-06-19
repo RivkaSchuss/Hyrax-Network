@@ -1,18 +1,14 @@
-import ICollar
 import datetime
-import math
-from scipy import sparse
 from scipy.sparse import lil_matrix
 import ParseDetails
 import numpy as np
 import csv
-import os
 import ephem
-import time
 
 amount_of_seconds = 5270400
 length_of_day = 86400
 lil_mtx_dir = 'LIL_mtx'
+
 
 def add_all_encounters(hyrax_dict, start_date, end_date):
     encounter_list = []
@@ -27,12 +23,9 @@ def add_all_encounters(hyrax_dict, start_date, end_date):
 
 def get_by_hours(encounter_list, start, end, time_interval_min=0, time_interval_max=float("inf")):
     count = 0
-    # start = start.split(":")
     if end == datetime.time(00, 00, 00):
         end = datetime.time(23, 59, 59)
     for e in encounter_list:
-        # print e.full_date
-        # print e.full_date.time()
         if start < e.full_date.time() < end:
             if time_interval_min < e.length < time_interval_max:
                 count += 1
@@ -56,7 +49,6 @@ def assign_pairs_to_dict(personal_list):
         for i in range(count):
             if p_id != personal_list[i]:
                 row_name = tuple([p_id, personal_list[i]])
-                # row_name = str(p_id) + "," + str(personal_list[i])
                 pair_to_row_dict[row_name] = row_count
                 row_count += 1
     return pair_to_row_dict
@@ -102,9 +94,9 @@ def save_encounters_to_files(directory):
     personal_list = []
 
     for i in encounters_list:
-        id = i.get_personal_id()
-        if not personal_list.__contains__(id):
-            personal_list.append(id)
+        i_id = i.get_personal_id()
+        if not personal_list.__contains__(i_id):
+            personal_list.append(i_id)
 
     pair_to_row_dict = assign_pairs_to_dict(personal_list)
 
@@ -232,7 +224,6 @@ def run_diff_per_days_for_all_pairs(personal_list, calc_list, max_value_for_offs
                                                                                          max_value_for_offset)
                     calculated_list.append((i, j))
                     calculated_list.append((j, i))
-                    # row_1 = [str(i) + '->' + str(j)]
                     row_2 = [str(i) + '->' + str(j)]
                     row_temp = []
                     row_3 = []
@@ -241,26 +232,15 @@ def run_diff_per_days_for_all_pairs(personal_list, calc_list, max_value_for_offs
                     row_temp.reverse()
                     row_mid = row_2 + row_temp
                     for key, value in days_agreement_dictionary_a_to_b.items():
-                        # row_1.append(key)
                         row_3.append(value)
                     row = row_mid + row_3
                     with open('EncountersInfo.csv', 'a', newline='') as f:
                         writer = csv.writer(f)
-                        # writer.writerow(row_1)
                         writer.writerow(row)
-                        # print(row_1)
                         print(row)
 
 
 def calc_enc_bet_mtx_for_diff_of_days(mtx_a, mtx_b, days_count):
-    """
-    calculate agreement for the the given values of
-    days between to lines of sparse matrix.
-    :param mtx_a:
-    :param mtx_b:
-    :param days_count:
-    :return:
-    """
     diff_per_days = {}
     a_xor_b = 0
     a_union_b = 0
@@ -350,7 +330,6 @@ def find_offset_to_maximize_agreement():
     with open('EncountersInfo.csv', mode='r') as f:
         reader = csv.reader(f)
         my_list = list(reader)
-        offset_list = my_list[0]
         for ls in my_list[1:]:
             value = max(ls[1:])
             if value == '0':
@@ -358,10 +337,8 @@ def find_offset_to_maximize_agreement():
             else:
                 index = ls.index(value)
                 offset = index - 190
-            # print(offset)
             pair = parse_asymetric_pair_to_tuple(ls[0])
             dict[pair] = offset
-    # print(dict)
     return dict
 
 
@@ -398,33 +375,8 @@ def fix_offset(offset_dic, directory):
                         col = v + offset_dic[key]
                         if col < 5270400:
                             mtx_a[[0], [col]] = 1
-                        # 'LIL_mtx_new//LIL[' + str(key[0]) + "-" + str(key[1]) + '].npz'
                     save_lil(directory + '//LIL[' + str(key[0]) + "-" + str(key[1]) + '].npz', mtx_a)
                     save_lil(directory + '//LIL[' + str(key[1]) + "-" + str(key[0]) + '].npz', mtx_b)
-
-
-# i don't remember why i used exmp func"
-def exmp(personal_list, calc_list):
-    calculated_list = calc_list
-    for i in personal_list:
-        for j in personal_list:
-            if i != j:
-                if (i, j) not in calculated_list:
-                    file_a = get_npz_file_name(i, j)
-                    file_b = get_npz_file_name(j, i)
-                    mtx_a = load_lil(file_a)
-                    mtx_b = load_lil(file_b)
-                    a_xor_b, a_union_b, a_to_b, b_to_a = calc_enc_bet_mtx(mtx_a, mtx_a)
-                    calculated_list.append((i, j))
-                    calculated_list.append((j, i))
-                    row_1 = [str(i) + '->' + str(j), a_xor_b, a_union_b, a_to_b, b_to_a]
-                    row_2 = [str(j) + '->' + str(i), a_xor_b, a_union_b, b_to_a, a_to_b]
-                    with open('Exmp.csv', 'a', newline='') as f:
-                        writer = csv.writer(f)
-                        writer.writerow(row_1)
-                        writer.writerow(row_2)
-                        print(row_1)
-                        print(row_2)
 
 
 def initialize_specific_range():
@@ -441,7 +393,6 @@ def initialize_specific_range():
 
 
 def determine_day_range(date):
-    # night_range = []
     ein_gedi = ephem.Observer()
     ein_gedi.date = ephem.Date(date)
     ein_gedi.lat = '31.46720101'

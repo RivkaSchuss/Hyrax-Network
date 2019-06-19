@@ -13,6 +13,7 @@ from sklearn.externals.six import StringIO
 from IPython.display import Image
 import pydotplus
 
+# hyper parameters:
 day_meet_count = 100
 predict_meet_count = 900
 tree_depth = 3
@@ -43,12 +44,11 @@ list_hours_prefix = 'count-per-hours-pairs/count_hour_for_{}-{}.txt'
 
 def make_db_and_train_by_hours(h_list, should_make_graph=True):
     make_db_by_hours(h_list)
-    hours_train(h_list, should_make_graph)
+    hours_train(should_make_graph)
 
 
 def make_db_by_hours(h_list):
     db_name = db_hours_global_name
-    # hyrax_dict, basestation_dict, start, end = pd.parse_details()
     calc_list = []
     for i in h_list:
         calc_list.append(i)
@@ -81,7 +81,7 @@ def make_db_by_hours(h_list):
                         writer.writerow(row)
 
 
-def hours_train(h_list, should_make_graph):
+def hours_train(should_make_graph):
     col_names = ["Hyrax", "Partner"]
     feature_cols = []
 
@@ -131,11 +131,11 @@ def hours_train(h_list, should_make_graph):
 
 def make_db_and_train(h_list, last_n_list=None, sex=False, should_make_graph=True, group=False, canyon=False):
     make_db_for_tree(h_list, last_n_list_param=last_n_list, sex=sex, group=group, canyon=canyon)
-    train(h_list, last_n_list_param=last_n_list, sex=sex, group=group, canyon=canyon,
+    train(last_n_list_param=last_n_list, sex=sex, group=group, canyon=canyon,
           should_make_graph=should_make_graph)
 
 
-def train(h_list, last_n_list_param=None, sex=False, group=False, canyon=False, should_make_graph=True):
+def train(last_n_list_param=None, sex=False, group=False, canyon=False, should_make_graph=True):
     col_names = ["Hyrax", "Partner"]
     feature_cols = []
     if sex:
